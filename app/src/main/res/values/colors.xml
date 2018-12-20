@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#5676f9</color>
+    <color name="colorPrimaryDark">#0032ff</color>
+    <color name="colorAccent">#ffbe00</color>
+
+    <!-- Colores para los elementos del menu -->
+    <color name="colorItemRow">#c78eedda</color>
+
+    <!-- Colores para las distintas fuentes usadas -->
+    <color name="colorStrongFont">#000</color>
+    <color name="colorWeakFont">#666</color>
+    <color name="colorBlockedFont">#F00</color>
+    <color name="colorWeakBlockedFont">#F66</color>
+</resources>

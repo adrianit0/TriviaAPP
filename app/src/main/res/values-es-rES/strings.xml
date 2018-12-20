@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="app_name">TriviaAPP</string>
+    <string name="row_maxPuntuation">"Maxima puntuación: "</string>
+    <string name="row_totalHit">"Total acertadas: "</string>
+    <string name="row_puntuation">"Puntuación: "</string>
+    <string name="row_hit">"Acertadas: "</string>
+    <string name="row_category">"Categoría: "</string>
+    <string name="row_date">"Fecha: "</string>
+    <string name="row_game">Juego #<xliff:g name="id" example="0">%s</xliff:g></string>
+</resources>
