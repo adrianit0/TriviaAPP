@@ -13,10 +13,4 @@
     <stroke
         android:width="2dp"
         android:color="#FFF" />
-
-    <size
-        android:width="wrap_content"
-        android:height="wrap_content" />
-
-
 </shape>

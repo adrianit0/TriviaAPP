@@ -13,5 +13,50 @@
     <string name="row_date">Date: </string>
     <string name="row_game">Game #<xliff:g name="id" example="0">%s</xliff:g></string>
 
+    <!-- Nombre de las categorias -->
+    <string name="categoria1">Any category</string>
+    <string name="categoria2">General Knowledge</string>
+    <string name="categoria3">Entertainment: Books</string>
+    <string name="categoria4">Entertainment: Films</string>
+    <string name="categoria5">Entertainment: Musics</string>
+    <string name="categoria6">Entertainment: Musicals and Theatres</string>
+    <string name="categoria7">Entertainment: Television</string>
+    <string name="categoria8">Entertainment: Video Games</string>
+    <string name="categoria9">Entertainment: Board Games</string>
+    <string name="categoria10">Science and Nature</string>
+    <string name="categoria11">Science: Computers</string>
+    <string name="categoria12">Science: Mathematics</string>
+    <string name="categoria14">Sports</string>
+    <string name="categoria15">Geography</string>
+    <string name="categoria16">History</string>
+    <string name="categoria17">Politics</string>
+    <string name="categoria18">Art</string>
+    <string name="categoria19">Celebrities</string>
+    <string name="categoria20">Animals</string>
+    <string name="categoria21">Vehicles</string>
+    <string name="categoria22">Entertainment: Comics</string>
+    <string name="categoria23">Science: Gadgets</string>
+    <string name="categoria24">Entertainment: Japanese Anime and Manga</string>
+    <string name="categoria25">Entertainment: Cartoon and Animations</string>
 
+    <!-- INFORMACION ACERCA DE LOS MODOS DE JUEGOS -->
+    <string name="modoJuegoTitulo1">Easy questions</string>
+    <string name="modoJuegoTitulo2">Easy questions</string>
+    <string name="modoJuegoTitulo3">Medium questions</string>
+    <string name="modoJuegoTitulo4">Medium questions</string>
+    <string name="modoJuegoTitulo5">Hard questions</string>
+    <string name="modoJuegoTitulo6">Hard questions</string>
+    <string name="modoJuegoTitulo7">Nightmare questions</string>
+    <string name="modoJuegoTitulo8">Nightmare questions</string>
+
+    <string name="modoJuegoDescripcion1">10 random easy questions</string>
+    <string name="modoJuegoDescripcion2">20 random easy questions</string>
+    <string name="modoJuegoDescripcion3">10 random medium questions</string>
+    <string name="modoJuegoDescripcion4">20 random medium questions</string>
+    <string name="modoJuegoDescripcion5">10 random hard questions</string>
+    <string name="modoJuegoDescripcion6">20 random hard questions</string>
+    <string name="modoJuegoDescripcion7">10 random nightmare questions</string>
+    <string name="modoJuegoDescripcion8">20 random nightmare questions</string>
+
+    <string name="modoJuegoBlocqueado">Complete the last mode!</string>
 </resources>

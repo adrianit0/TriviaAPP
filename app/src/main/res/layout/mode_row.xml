@@ -7,6 +7,7 @@
     android:layout_margin="4dp"
     android:padding="12dp"
     android:background="@layout/borde_categoria"
+    android:id="@+id/linear"
     >
 
     <TextView
