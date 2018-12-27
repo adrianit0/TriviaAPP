@@ -10,9 +10,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.garcia.adrian.triviaapp.R;
-import com.garcia.adrian.triviaapp.model.EstiloJuegoBase;
-import com.garcia.adrian.triviaapp.model.ModoCategoria;
-import com.garcia.adrian.triviaapp.model.ModoJuego;
+import com.garcia.adrian.triviaapp.model.menu.ModoCategoria;
 
 import java.util.List;
 

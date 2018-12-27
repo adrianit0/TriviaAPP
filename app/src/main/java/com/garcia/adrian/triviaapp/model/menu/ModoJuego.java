@@ -1,6 +1,8 @@
-package com.garcia.adrian.triviaapp.model;
+package com.garcia.adrian.triviaapp.model.menu;
 
-public class ModoJuego extends EstiloJuegoBase{
+import com.garcia.adrian.triviaapp.model.menu.EstiloJuegoBase;
+
+public class ModoJuego extends EstiloJuegoBase {
 
     private String descripcion;         // Solo para en el de modo juego
     private boolean bloqueado;          // Solo para modo juego

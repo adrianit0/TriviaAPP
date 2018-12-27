@@ -1,4 +1,4 @@
-package com.garcia.adrian.triviaapp.model;
+package com.garcia.adrian.triviaapp.model.menu;
 
 public abstract class EstiloJuegoBase {
 

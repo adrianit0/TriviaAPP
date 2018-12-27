@@ -1,22 +1,30 @@
-package com.garcia.adrian.triviaapp.model;
+package com.garcia.adrian.triviaapp.model.historial;
 
 
+import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.PrimaryKey;
 import android.content.Context;
-import android.content.res.Resources;
+import android.support.annotation.NonNull;
 
 import com.garcia.adrian.triviaapp.R;
-import com.garcia.adrian.triviaapp.activities.MainActivity;
+import com.garcia.adrian.triviaapp.model.menu.EstiloJuegoBase;
 
-public class HistorialPartida extends EstiloJuegoBase{
+@Entity(tableName = "partida")
+public class Partida extends EstiloJuegoBase {
 
-    private int id;             // ID Partida
+    @PrimaryKey(autoGenerate = true)
+    private long id;             // ID Partida
+    @NonNull
     private String puntuacion;
+    @NonNull
     private String acertadas;
+    @NonNull
     private String categoria;
+    @NonNull
     private String fecha;
 
     // Constructor para el modo historial
-    public HistorialPartida(Context context, int id, String puntuacion, String acertadas, String categoria, String fecha) {
+    public Partida(Context context, long id, String puntuacion, String acertadas, String categoria, String fecha) {
         super(context.getString(R.string.tituloHistorial)+" #"+id);
         this.id = id;
         this.puntuacion = puntuacion;
@@ -25,11 +33,11 @@ public class HistorialPartida extends EstiloJuegoBase{
         this.fecha = fecha;
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 

@@ -12,8 +12,7 @@ import android.view.ViewGroup;
 
 import com.garcia.adrian.triviaapp.R;
 import com.garcia.adrian.triviaapp.adapter.ModoHistorialAdapter;
-import com.garcia.adrian.triviaapp.model.HistorialPartida;
-import com.garcia.adrian.triviaapp.model.ModoJuego;
+import com.garcia.adrian.triviaapp.model.historial.Partida;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -21,7 +20,7 @@ import java.util.Arrays;
 public class HistoryFragment extends Fragment {
 
     private ModoHistorialAdapter mAdapter;
-    private ArrayList<HistorialPartida> historialPartidas;
+    private ArrayList<Partida> partidas;
 
     private RecyclerView recyclerView;
     private RecyclerView.LayoutManager layoutManager;
@@ -44,23 +43,23 @@ public class HistoryFragment extends Fragment {
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setHasFixedSize(true);
 
-        historialPartidas = new ArrayList<>();
+        partidas = new ArrayList<>();
 
         // TODO: Cargar desde base de datos ROOM
-        historialPartidas.addAll (
+        partidas.addAll (
                 Arrays.asList(
-                        new HistorialPartida(getContext(), 0, "0", "0", "Any", "27/12/2018"),
-                        new HistorialPartida(getContext(), 1, "0", "0", "Any", "27/12/2018"),
-                        new HistorialPartida(getContext(), 2, "0", "0", "Any", "27/12/2018"),
-                        new HistorialPartida(getContext(), 3, "0", "0", "Any", "27/12/2018"),
-                        new HistorialPartida(getContext(), 4, "0", "0", "Any", "27/12/2018"),
-                        new HistorialPartida(getContext(), 5, "0", "0", "Any", "27/12/2018"),
-                        new HistorialPartida(getContext(), 6, "0", "0", "Any", "27/12/2018")
+                        new Partida(getContext(), 0, "0", "0", "Any", "27/12/2018"),
+                        new Partida(getContext(), 1, "0", "0", "Any", "27/12/2018"),
+                        new Partida(getContext(), 2, "0", "0", "Any", "27/12/2018"),
+                        new Partida(getContext(), 3, "0", "0", "Any", "27/12/2018"),
+                        new Partida(getContext(), 4, "0", "0", "Any", "27/12/2018"),
+                        new Partida(getContext(), 5, "0", "0", "Any", "27/12/2018"),
+                        new Partida(getContext(), 6, "0", "0", "Any", "27/12/2018")
                 )
         );
 
         // TODO: Poner el listener correcto
-        mAdapter = new ModoHistorialAdapter(historialPartidas, R.layout.history_row, getActivity(), null);
+        mAdapter = new ModoHistorialAdapter(partidas, R.layout.history_row, getActivity(), null);
 
         recyclerView.setAdapter(mAdapter);
 
@@ -79,6 +78,6 @@ public class HistoryFragment extends Fragment {
     }
 
     public interface OnHistoryClickListener {
-        void onHistoryClickListener (HistorialPartida modo);
+        void onHistoryClickListener (Partida modo);
     }
 }

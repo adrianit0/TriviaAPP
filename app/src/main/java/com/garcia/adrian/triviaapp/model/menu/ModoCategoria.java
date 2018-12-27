@@ -1,6 +1,8 @@
-package com.garcia.adrian.triviaapp.model;
+package com.garcia.adrian.triviaapp.model.menu;
 
-public class ModoCategoria extends EstiloJuegoBase{
+import com.garcia.adrian.triviaapp.model.menu.EstiloJuegoBase;
+
+public class ModoCategoria extends EstiloJuegoBase {
 
     private String maximaPuntuacion;    // Para categoria
     private String totalAcertadas;      // Para categoria

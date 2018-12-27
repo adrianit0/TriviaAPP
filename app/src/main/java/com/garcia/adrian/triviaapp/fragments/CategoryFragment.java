@@ -10,10 +10,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.garcia.adrian.triviaapp.Pregunta.CATEGORIA;
+import com.garcia.adrian.triviaapp.model.historial.Pregunta.CATEGORIA;
 import com.garcia.adrian.triviaapp.R;
 import com.garcia.adrian.triviaapp.adapter.ModoCategoryAdapter;
-import com.garcia.adrian.triviaapp.model.ModoCategoria;
+import com.garcia.adrian.triviaapp.model.menu.ModoCategoria;
 
 import java.util.ArrayList;
 

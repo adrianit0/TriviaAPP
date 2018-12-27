@@ -12,7 +12,7 @@ import android.view.ViewGroup;
 
 import com.garcia.adrian.triviaapp.R;
 import com.garcia.adrian.triviaapp.adapter.ModoJuegoAdapter;
-import com.garcia.adrian.triviaapp.model.ModoJuego;
+import com.garcia.adrian.triviaapp.model.menu.ModoJuego;
 
 import java.util.ArrayList;
 import java.util.Arrays;

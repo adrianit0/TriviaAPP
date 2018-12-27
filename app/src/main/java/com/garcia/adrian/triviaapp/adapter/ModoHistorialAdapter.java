@@ -10,19 +10,19 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.garcia.adrian.triviaapp.R;
-import com.garcia.adrian.triviaapp.model.HistorialPartida;
+import com.garcia.adrian.triviaapp.model.historial.Partida;
 
 import java.util.List;
 
 public class ModoHistorialAdapter extends RecyclerView.Adapter<ModoHistorialAdapter.ViewHolder> {
-    private List<HistorialPartida> historials;
+    private List<Partida> historials;
     private int layout;
     private Activity activity;
     private ModoHistorialAdapter.OnItemClickListener listener;
 
     private ViewGroup viewGroup;
 
-    public ModoHistorialAdapter(List<HistorialPartida> historials, int layout, Activity activity, ModoHistorialAdapter.OnItemClickListener listener) {
+    public ModoHistorialAdapter(List<Partida> historials, int layout, Activity activity, ModoHistorialAdapter.OnItemClickListener listener) {
         this.historials = historials;
         this.layout = layout;
         this.activity = activity;
@@ -42,7 +42,7 @@ public class ModoHistorialAdapter extends RecyclerView.Adapter<ModoHistorialAdap
 
     @Override
     public void onBindViewHolder(@NonNull ModoHistorialAdapter.ViewHolder viewHolder, int i) {
-        final HistorialPartida historial = historials.get(i);
+        final Partida historial = historials.get(i);
 
         viewHolder.textTitulo.setText(historial.getTitulo());
         viewHolder.textPuntuacion.setText(historial.getPuntuacion());
@@ -85,7 +85,7 @@ public class ModoHistorialAdapter extends RecyclerView.Adapter<ModoHistorialAdap
     }
 
     public interface OnItemClickListener{
-        void onItemClick(View vista, HistorialPartida modo);
+        void onItemClick(View vista, Partida modo);
     }
 
 }
