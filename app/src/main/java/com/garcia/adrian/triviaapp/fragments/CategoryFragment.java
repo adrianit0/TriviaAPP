@@ -10,14 +10,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.garcia.adrian.triviaapp.Pregunta.CATEGORIA;
 import com.garcia.adrian.triviaapp.R;
 import com.garcia.adrian.triviaapp.adapter.ModoCategoryAdapter;
-import com.garcia.adrian.triviaapp.adapter.ModoJuegoAdapter;
 import com.garcia.adrian.triviaapp.model.ModoCategoria;
-import com.garcia.adrian.triviaapp.model.ModoJuego;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class CategoryFragment extends Fragment {
 
@@ -37,7 +35,7 @@ public class CategoryFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        View rootView = inflater.inflate(R.layout.fragment_modo_juego, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_lista, container, false);
         ((AppCompatActivity)getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         recyclerView= rootView.findViewById(R.id.recyclerView);
@@ -46,18 +44,11 @@ public class CategoryFragment extends Fragment {
         recyclerView.setHasFixedSize(true);
 
         categorias = new ArrayList<>();
-        categorias.addAll (
-                Arrays.asList(
-                        new ModoCategoria(getString(R.string.categoria1), "0", "0"),
-                        new ModoCategoria(getString(R.string.categoria2), "0", "0"),
-                        new ModoCategoria(getString(R.string.categoria3), "0", "0"),
-                        new ModoCategoria(getString(R.string.categoria4), "0", "0"),
-                        new ModoCategoria(getString(R.string.categoria5), "100", "1"),
-                        new ModoCategoria(getString(R.string.categoria6), "0", "0"),
-                        new ModoCategoria(getString(R.string.categoria7), "0", "0"),
-                        new ModoCategoria(getString(R.string.categoria8), "0", "0")
-                )
-        );
+        CATEGORIA[] listaCategoria = CATEGORIA.values();
+
+        // Añadimos todas las categorias
+        for (CATEGORIA c : listaCategoria)
+            categorias.add (new ModoCategoria(c.getName(this.getContext()), "0", "0"));
 
         // TODO: Poner el listener correcto
         mAdapter = new ModoCategoryAdapter(categorias, R.layout.category_row, getActivity(), null);
@@ -79,6 +70,6 @@ public class CategoryFragment extends Fragment {
     }
 
     public interface OnGameCategoryClickListener {
-        void onCategoryClickListener (ModoJuego modo);
+        void onCategoryClickListener (ModoCategoria modo);
     }
 }

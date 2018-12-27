@@ -26,6 +26,7 @@
     <string name="categoria10">Science and Nature</string>
     <string name="categoria11">Science: Computers</string>
     <string name="categoria12">Science: Mathematics</string>
+    <string name="categoria13">Mythology</string>
     <string name="categoria14">Sports</string>
     <string name="categoria15">Geography</string>
     <string name="categoria16">History</string>
@@ -59,4 +60,6 @@
     <string name="modoJuegoDescripcion8">20 random nightmare questions</string>
 
     <string name="modoJuegoBlocqueado">Complete the last mode!</string>
+
+    <string name="tituloHistorial">Game</string>
 </resources>

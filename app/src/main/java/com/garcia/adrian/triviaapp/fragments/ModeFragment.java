@@ -1,25 +1,16 @@
 package com.garcia.adrian.triviaapp.fragments;
 
 import android.content.Context;
-import android.media.AudioAttributes;
-import android.media.AudioFocusRequest;
-import android.media.AudioManager;
-import android.media.MediaPlayer;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ListView;
 
 import com.garcia.adrian.triviaapp.R;
-import com.garcia.adrian.triviaapp.adapter.CategoryAdapter;
 import com.garcia.adrian.triviaapp.adapter.ModoJuegoAdapter;
 import com.garcia.adrian.triviaapp.model.ModoJuego;
 
@@ -44,7 +35,7 @@ public class ModeFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        View rootView = inflater.inflate(R.layout.fragment_modo_juego, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_lista, container, false);
         ((AppCompatActivity)getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         recyclerView= rootView.findViewById(R.id.recyclerView);

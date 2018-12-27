@@ -6,6 +6,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
 import com.garcia.adrian.triviaapp.fragments.CategoryFragment;
+import com.garcia.adrian.triviaapp.fragments.HistoryFragment;
 import com.garcia.adrian.triviaapp.fragments.ModeFragment;
 
 public class CategoryAdapter extends FragmentPagerAdapter {
@@ -24,6 +25,8 @@ public class CategoryAdapter extends FragmentPagerAdapter {
                 return new ModeFragment();
             case 1:
                 return new CategoryFragment();
+            case 2:
+                return new HistoryFragment();
             default:
                 return new ModeFragment();
         }

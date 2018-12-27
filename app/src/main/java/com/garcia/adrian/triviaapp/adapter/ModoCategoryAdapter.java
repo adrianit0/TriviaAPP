@@ -72,7 +72,6 @@ public class ModoCategoryAdapter extends RecyclerView.Adapter<ModoCategoryAdapte
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            // TODO: SEGUIR CON ESTO
             textTitulo= itemView.findViewById(R.id.textViewTitulo);
             textMaxPuntuacion = itemView.findViewById(R.id.textViewMaxPuntuacion);
             textMaxAcertadas = itemView.findViewById(R.id.textViewMaxAcertadas);
