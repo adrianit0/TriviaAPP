@@ -1,12 +1,24 @@
 package com.garcia.adrian.triviaapp.activities;
 
+import android.arch.lifecycle.Observer;
+import android.arch.lifecycle.ViewModelProviders;
+import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
+import android.widget.Toast;
 
 import com.garcia.adrian.triviaapp.R;
 import com.garcia.adrian.triviaapp.adapter.CategoryAdapter;
+import com.garcia.adrian.triviaapp.model.juego.PreguntaJuego;
+import com.garcia.adrian.triviaapp.model.juego.PreguntaJuegoViewModel;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -25,6 +37,7 @@ public class MainActivity extends AppCompatActivity {
         // Give the TabLayout the ViewPager
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tablayout);
         tabLayout.setupWithViewPager(viewPager);
-
     }
+
+
 }

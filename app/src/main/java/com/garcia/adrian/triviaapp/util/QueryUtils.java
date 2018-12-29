@@ -32,7 +32,7 @@ public final class QueryUtils {
         try {
 
             JSONObject root = new JSONObject(s);
-            JSONArray array = root.getJSONArray("result");
+            JSONArray array = root.getJSONArray("results");
 
             for (int i = 0; i < array.length(); i++) {
                 JSONObject preguntaJSON = (JSONObject) array.get(i);
@@ -50,7 +50,6 @@ public final class QueryUtils {
                 for (int k = 0; k < incorrect.length(); k++) {
                     answers[k+1] = (String) incorrect.get(k);
                 }
-
 
                 PreguntaJuego t = new PreguntaJuego(i, category, type, difficulty, question, answers);
 

@@ -23,6 +23,8 @@ public class Partida extends EstiloJuegoBase {
     @NonNull
     private String fecha;
 
+    public Partida () {}
+
     // Constructor para el modo historial
     public Partida(Context context, long id, String puntuacion, String acertadas, String categoria, String fecha) {
         super(context.getString(R.string.tituloHistorial)+" #"+id);

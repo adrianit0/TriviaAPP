@@ -9,7 +9,14 @@
 
     <!-- Colores para las distintas fuentes usadas -->
     <color name="colorStrongFont">#000</color>
-    <color name="colorWeakFont">#666</color>
+    <color name="colorWeakFont">#777</color>
     <color name="colorBlockedFont">#F00</color>
     <color name="colorWeakBlockedFont">#F66</color>
+
+    <color name="colorPregunta">#FFF</color>
+    <color name="colorPreguntaWeak">#777</color>
+    <color name="colorRespuestaCorrecta">#0F0</color>
+    <color name="colorRespuestaIncorrecta">#F00</color>
+
+
 </resources>

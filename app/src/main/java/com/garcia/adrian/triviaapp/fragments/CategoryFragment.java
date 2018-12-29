@@ -1,6 +1,7 @@
 package com.garcia.adrian.triviaapp.fragments;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
@@ -10,7 +11,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.garcia.adrian.triviaapp.model.historial.Pregunta.CATEGORIA;
+import com.garcia.adrian.triviaapp.activities.GameActivity;
+import com.garcia.adrian.triviaapp.activities.MainActivity;
+import com.garcia.adrian.triviaapp.enums.CATEGORIA;
 import com.garcia.adrian.triviaapp.R;
 import com.garcia.adrian.triviaapp.adapter.ModoCategoryAdapter;
 import com.garcia.adrian.triviaapp.model.menu.ModoCategoria;
@@ -51,7 +54,15 @@ public class CategoryFragment extends Fragment {
             categorias.add (new ModoCategoria(c.getName(this.getContext()), "0", "0"));
 
         // TODO: Poner el listener correcto
-        mAdapter = new ModoCategoryAdapter(categorias, R.layout.category_row, getActivity(), null);
+        mAdapter = new ModoCategoryAdapter(categorias, R.layout.category_row, getActivity(), new ModoCategoryAdapter.OnItemClickListener(){
+
+            @Override
+            public void onItemClick(View vista, ModoCategoria modo) {
+                Intent intent = new Intent(getActivity(), GameActivity.class);
+
+                startActivity(intent);
+            }
+        });
 
         recyclerView.setAdapter(mAdapter);
 
@@ -69,6 +80,7 @@ public class CategoryFragment extends Fragment {
         }
     }
 
+    //TODO: Mirar si debo o no borrarlo, mirar si es necesario
     public interface OnGameCategoryClickListener {
         void onCategoryClickListener (ModoCategoria modo);
     }

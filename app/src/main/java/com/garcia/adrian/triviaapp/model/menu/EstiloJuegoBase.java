@@ -4,6 +4,9 @@ public abstract class EstiloJuegoBase {
 
     private String titulo;
 
+    public EstiloJuegoBase() {
+    }
+
     public EstiloJuegoBase(String titulo) {
         this.titulo = titulo;
     }

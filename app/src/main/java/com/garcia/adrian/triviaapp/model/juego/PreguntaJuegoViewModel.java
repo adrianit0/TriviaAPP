@@ -41,7 +41,7 @@ public class PreguntaJuegoViewModel extends AndroidViewModel {
 
         boolean forzar = false; // TODO: Cambiar esto
         if (preguntasJuego==null || forzar) {
-            
+
             preguntasJuego= new MutableLiveData<>();
             cargarPreguntas();
         }
@@ -56,9 +56,8 @@ public class PreguntaJuegoViewModel extends AndroidViewModel {
 
         int numero = 10;                // Cantidad de preguntas
         int categoria = 23;             // Categoria
-        String dificultad = "medium";   //Dificultad
+        String dificultad = "medium";   // Dificultad
         String tipo = "multiple";       // Tipo (Verdadero/Falso o Multiples opciones)
-
 
         Uri baseUri = Uri.parse(REQUEST_URL);
         Uri.Builder uriBuilder = baseUri.buildUpon();
