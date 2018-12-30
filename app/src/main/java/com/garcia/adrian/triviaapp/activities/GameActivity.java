@@ -13,47 +13,65 @@ import android.widget.Toast;
 
 import com.garcia.adrian.triviaapp.R;
 import com.garcia.adrian.triviaapp.fragments.FragmentJuegoPregunta;
+import com.garcia.adrian.triviaapp.fragments.FragmentJuegoRespuestas;
 import com.garcia.adrian.triviaapp.model.juego.PreguntaJuego;
 import com.garcia.adrian.triviaapp.model.juego.PreguntaJuegoViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class GameActivity extends AppCompatActivity implements FragmentJuegoPregunta.OnQuestionSend {
+public class GameActivity extends AppCompatActivity implements FragmentJuegoPregunta.OnQuestionSend, FragmentJuegoRespuestas.OnQuestionSend {
 
     private ArrayList<PreguntaJuego> listaPreguntas;
     private int preguntaActual = 0;
+
+    private boolean cargado = false;
+
+    private FragmentJuegoPregunta fragmentPregunta;
+    private FragmentJuegoRespuestas fragmentRespuestas;
+    private PreguntaJuegoViewModel model;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
+
+        fragmentPregunta= (FragmentJuegoPregunta) getSupportFragmentManager().findFragmentById(R.id.fragmentPregunta);
+        fragmentRespuestas= (FragmentJuegoRespuestas) getSupportFragmentManager().findFragmentById(R.id.fragmentRespuestas);
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
     @Override
-    public void onChange () {
-        FragmentJuegoPregunta f= (FragmentJuegoPregunta) getSupportFragmentManager().findFragmentById(R.id.frameLayoutContenido);
-
-        actualizarContenido();
-
-        if (preguntaActual>listaPreguntas.size()) {
-            Toast.makeText(GameActivity.this, "NO HAY MÁS PREGUNTAS", Toast.LENGTH_SHORT).show();
+    public void onQuestionChange() {
+        // Para que se muestre la pregunta tiene que haber cargado antes el otro fragment
+        if (!cargado) {
+            cargado=true;
             return;
         }
-
-        if (f!=null){
-            //Toast.makeText(MainActivity.this, "ENCONTRADO", Toast.LENGTH_SHORT).show();
-            f.setPregunta(listaPreguntas.get(preguntaActual));
-        } else {
-            Toast.makeText(GameActivity.this, "FRAGMENT NO ENCONTRADO", Toast.LENGTH_SHORT).show();
-        }
+        actualizarContenido();
     }
 
     @Override
-    protected void onResume() {
-        super.onResume();
+    public void onStartAnimation (boolean acertado){
+        if (acertado&&model!=null)
+            model.ganarPuntos(listaPreguntas.get(preguntaActual).getDificultad().getPuntuacion());
+        fragmentPregunta.animacion(acertado);
+    }
 
+    @Override
+    public void onAnswerChange() {
+        // Para que se muestre la pregunta tiene que haber cargado antes el otro fragment
+        if (!cargado) {
+            cargado=true;
+            return;
+        }
         actualizarContenido();
+    }
+
+    @Override
+    public void nextAnswer() {
+        siguientePregunta(false);
     }
 
     // Actualiza el contenido de las preguntas (Para el juego)
@@ -71,7 +89,7 @@ public class GameActivity extends AppCompatActivity implements FragmentJuegoPreg
         // If there is a network connection, fetch data
         if (networkInfo != null && networkInfo.isConnected()) {
 
-            PreguntaJuegoViewModel model = ViewModelProviders.of(this).get(PreguntaJuegoViewModel.class);
+            model = ViewModelProviders.of(this).get(PreguntaJuegoViewModel.class);
 
             model.getPreguntas().observe(this, new Observer<List<PreguntaJuego>>() {
                 @Override
@@ -79,14 +97,34 @@ public class GameActivity extends AppCompatActivity implements FragmentJuegoPreg
                     listaPreguntas = new ArrayList<>();
                     listaPreguntas.addAll(preguntas);
 
-                    for (PreguntaJuego p : listaPreguntas) {
-                        Log.e("PRUEBA_PREGUNTA", p.getEnunciado());
-                    }
+                    siguientePregunta(true);
                 }
             });
 
         } else {
             (Toast.makeText(this, R.string.no_internet_connection, Toast.LENGTH_LONG)).show();
+        }
+    }
+
+    private void siguientePregunta(boolean firstTime) {
+        if (!firstTime)
+            preguntaActual++;
+
+        if (preguntaActual>=listaPreguntas.size()) {
+            Toast.makeText(GameActivity.this, "NO HAY MÁS PREGUNTAS", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        if (fragmentPregunta!=null){
+            fragmentPregunta.setPregunta(listaPreguntas.get(preguntaActual),model.getPuntuacion(),preguntaActual);
+        } else {
+            Toast.makeText(GameActivity.this, "FRAGMENT PREGUNTA NO ENCONTRADO", Toast.LENGTH_SHORT).show();
+        }
+
+        if (fragmentRespuestas!=null){
+            fragmentRespuestas.setRespuestas(listaPreguntas.get(preguntaActual));
+        } else {
+            Toast.makeText(GameActivity.this, "FRAGMENT  RESPUESTAS NO ENCONTRADO", Toast.LENGTH_SHORT).show();
         }
     }
 }

@@ -19,6 +19,9 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.garcia.adrian.triviaapp.R;
+import com.garcia.adrian.triviaapp.enums.CATEGORIA;
+import com.garcia.adrian.triviaapp.enums.DIFICULTAD;
+import com.garcia.adrian.triviaapp.model.menu.ModoCategoria;
 import com.garcia.adrian.triviaapp.util.QueryUtils;
 
 import java.util.List;
@@ -28,7 +31,8 @@ import java.util.List;
 * */
 public class PreguntaJuegoViewModel extends AndroidViewModel {
 
-    private static MutableLiveData<List<PreguntaJuego>> preguntasJuego;
+    private MutableLiveData<List<PreguntaJuego>> preguntasJuego;
+    private int puntuacion=0;
     private Application aplicacion;
     private static final String REQUEST_URL = "https://opentdb.com/api.php";
 
@@ -37,34 +41,47 @@ public class PreguntaJuegoViewModel extends AndroidViewModel {
         this.aplicacion = aplicacion;
     }
 
-    public LiveData<List<PreguntaJuego>> getPreguntas() {
-
-        boolean forzar = false; // TODO: Cambiar esto
+    public LiveData<List<PreguntaJuego>> getPreguntas(boolean forzar) {
         if (preguntasJuego==null || forzar) {
-
             preguntasJuego= new MutableLiveData<>();
-            cargarPreguntas();
+            cargarPreguntas(10, CATEGORIA.AnyCategory, DIFICULTAD.Any);
         }
 
         return preguntasJuego;
     }
 
-    private void cargarPreguntas () {
-        SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(aplicacion.getApplicationContext());
-        // Tomamos el contexto
-        Context contexto = aplicacion.getApplicationContext();
+    public LiveData<List<PreguntaJuego>> getPreguntas() {
+        return getPreguntas(false);
+    }
 
-        int numero = 10;                // Cantidad de preguntas
-        int categoria = 23;             // Categoria
-        String dificultad = "medium";   // Dificultad
-        String tipo = "multiple";       // Tipo (Verdadero/Falso o Multiples opciones)
+    public int getPuntuacion () {
+        return puntuacion;
+    }
+
+    public void ganarPuntos (int puntos) {
+        puntuacion+=puntos;
+    }
+
+    //Carga unas partidas del modo categoria
+    public LiveData<List<PreguntaJuego>> getPreguntas(ModoCategoria categoria) {
+        preguntasJuego= new MutableLiveData<>();
+        cargarPreguntas(10, categoria.getCategoria(), DIFICULTAD.Any);
+        return preguntasJuego;
+    }
+
+    private void cargarPreguntas (int numero, CATEGORIA categoria, DIFICULTAD dificultad) {
+        Log.e("CARGANDO_PREGUNTAS", "Las preguntas estan siendo cargada. CATEGORIA: "+ categoria+ " ID: "+categoria.getID());
+
+        String tipo = "multiple";       // Tipo: multiple, boolean, any
 
         Uri baseUri = Uri.parse(REQUEST_URL);
         Uri.Builder uriBuilder = baseUri.buildUpon();
 
         uriBuilder.appendQueryParameter("amount", numero+"");
-        uriBuilder.appendQueryParameter("category", categoria+"");
-        uriBuilder.appendQueryParameter("difficulty", dificultad);
+        if (categoria.getID()>0)
+            uriBuilder.appendQueryParameter("category", categoria.getID()+"");
+        if (!dificultad.equals("any"))
+            uriBuilder.appendQueryParameter("difficulty", dificultad.getTexto());
         uriBuilder.appendQueryParameter("type", tipo);
 
         final RequestQueue requestQueue = Volley.newRequestQueue(aplicacion.getApplicationContext());
@@ -72,11 +89,7 @@ public class PreguntaJuegoViewModel extends AndroidViewModel {
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-                        List<PreguntaJuego> listaPreguntas = QueryUtils.extractQuestions(response);
-                        preguntasJuego.setValue(listaPreguntas);
-
-                        // Log del contenido
-                        Log.e("Respuesta_funcional", response);
+                        preguntasJuego.setValue( QueryUtils.extractQuestions(response));
                     }
                 }, new Response.ErrorListener() {
             @Override

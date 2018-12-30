@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <string name="app_name">TriviaAPP</string>
+    <string name="app_name">TriviaAPP</string>ç
+    <string name="game_activity_name">Trivia</string>
 
     <!-- TRADUCCION: INGLES -->
     <!-- CATEGORY ROWS -->
@@ -39,6 +40,12 @@
     <string name="categoria23">Science: Gadgets</string>
     <string name="categoria24">Entertainment: Japanese Anime and Manga</string>
     <string name="categoria25">Entertainment: Cartoon and Animations</string>
+
+    <!-- Nombre de las dificultades -->
+    <string name="dificultadFacil">Easy</string>
+    <string name="dificultadMedium">Medium</string>
+    <string name="dificultadHard">Hard</string>
+    <string name="dificultadAny">Any</string>
 
     <!-- INFORMACION ACERCA DE LOS MODOS DE JUEGOS -->
     <string name="modoJuegoTitulo1">Easy questions</string>

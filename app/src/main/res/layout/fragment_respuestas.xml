@@ -26,7 +26,7 @@
             android:layout_marginLeft="16dp"
             android:layout_marginRight="16dp"
             android:layout_marginBottom="8dp"
-            android:text="ACTIVISION"
+            android:text=""
             android:textColor="@color/colorPregunta"
             android:textSize="16sp" />
         <Button
@@ -38,7 +38,7 @@
             android:layout_marginLeft="16dp"
             android:layout_marginRight="16dp"
             android:layout_marginBottom="8dp"
-            android:text="2K GAMES"
+            android:text=""
             android:textColor="@color/colorPregunta"
             android:textSize="16sp" />
         <Button
@@ -50,7 +50,7 @@
             android:layout_marginLeft="16dp"
             android:layout_marginRight="16dp"
             android:layout_marginBottom="8dp"
-            android:text="GEARBOX SOFTWARE"
+            android:text=""
             android:textColor="@color/colorPregunta"
             android:textSize="16sp" />
         <Button
@@ -62,7 +62,7 @@
             android:layout_marginLeft="16dp"
             android:layout_marginRight="16dp"
             android:layout_marginBottom="8dp"
-            android:text="ROCKSTAR GAMES"
+            android:text=""
             android:textColor="@color/colorPregunta"
             android:textSize="16sp" />
 

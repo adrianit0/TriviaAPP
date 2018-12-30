@@ -1,5 +1,8 @@
 package com.garcia.adrian.triviaapp.model.juego;
 
+import com.garcia.adrian.triviaapp.enums.CATEGORIA;
+import com.garcia.adrian.triviaapp.enums.DIFICULTAD;
+
 /*
 * Preguntas para responder y mostrar dentro del juego.
 *
@@ -8,16 +11,16 @@ package com.garcia.adrian.triviaapp.model.juego;
 public class PreguntaJuego {
 
     private int id;             // ID dentro de la partida, del 0 al total.
-    private String categoria;
+    private CATEGORIA categoria;
     private String tipo;        // multiple o boolean
-    private String dificultad;  // dificultad
+    private DIFICULTAD dificultad;  // dificultad
 
     private String enunciado;
 
     private String[] opciones;  // La primera respuesta será siempre la correcta.
 
 
-    public PreguntaJuego(int id, String categoria, String tipo, String dificultad, String enunciado, String[] opciones) {
+    public PreguntaJuego(int id, CATEGORIA categoria, String tipo, DIFICULTAD dificultad, String enunciado, String[] opciones) {
         this.id = id;
         this.categoria = categoria;
         this.tipo = tipo;
@@ -32,7 +35,8 @@ public class PreguntaJuego {
         this.opciones = opciones;
 
         tipo = "any";
-        dificultad = "any";
+        dificultad = DIFICULTAD.Any;
+        categoria = CATEGORIA.AnyCategory;
     }
 
     /**
@@ -52,13 +56,6 @@ public class PreguntaJuego {
         return _opciones;
     }
 
-    public String getCategoria() {
-        return categoria;
-    }
-
-    public void setCategoria(String categoria) {
-        this.categoria = categoria;
-    }
 
     public String getEnunciado() {
         return enunciado;
@@ -92,11 +89,19 @@ public class PreguntaJuego {
         this.tipo = tipo;
     }
 
-    public String getDificultad() {
+    public CATEGORIA getCategoria() {
+        return categoria;
+    }
+
+    public void setCategoria(CATEGORIA categoria) {
+        this.categoria = categoria;
+    }
+
+    public DIFICULTAD getDificultad() {
         return dificultad;
     }
 
-    public void setDificultad(String dificultad) {
+    public void setDificultad(DIFICULTAD dificultad) {
         this.dificultad = dificultad;
     }
 }

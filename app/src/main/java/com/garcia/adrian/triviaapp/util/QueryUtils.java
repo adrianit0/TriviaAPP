@@ -2,6 +2,8 @@ package com.garcia.adrian.triviaapp.util;
 
 import android.util.Log;
 
+import com.garcia.adrian.triviaapp.enums.CATEGORIA;
+import com.garcia.adrian.triviaapp.enums.DIFICULTAD;
 import com.garcia.adrian.triviaapp.model.juego.PreguntaJuego;
 
 import org.json.JSONArray;
@@ -51,7 +53,7 @@ public final class QueryUtils {
                     answers[k+1] = (String) incorrect.get(k);
                 }
 
-                PreguntaJuego t = new PreguntaJuego(i, category, type, difficulty, question, answers);
+                PreguntaJuego t = new PreguntaJuego(i, CATEGORIA.fromString(category), type, DIFICULTAD.fromString(difficulty), question, answers);
 
                 preguntas.add(t);
             }

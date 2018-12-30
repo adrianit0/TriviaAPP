@@ -29,9 +29,7 @@ public class MainActivity extends AppCompatActivity {
 
         // Contenido del mainActivity
         ViewPager viewPager = findViewById(R.id.viewpager);
-
         CategoryAdapter preguntaAdapter = new CategoryAdapter(getSupportFragmentManager());
-
         viewPager.setAdapter(preguntaAdapter);
 
         // Give the TabLayout the ViewPager

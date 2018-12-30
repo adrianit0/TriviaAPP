@@ -3,6 +3,7 @@ package com.garcia.adrian.triviaapp.enums;
 import android.content.Context;
 
 import com.garcia.adrian.triviaapp.R;
+import com.garcia.adrian.triviaapp.fragments.CategoryFragment;
 
 
 // Un enum con todas las categorias con la ID de la API
@@ -98,5 +99,68 @@ public enum CATEGORIA {
         }
 
         return "";
+    }
+
+    public static CATEGORIA fromID(int id) {
+        if (id<9)
+            return CATEGORIA.AnyCategory;
+
+        return CATEGORIA.values()[id-8];
+    }
+
+    public static CATEGORIA fromString(String cad){
+        switch (cad){
+            //TODO: Mejorar esta parte
+            case "General Knowledge":
+                return CATEGORIA.values()[1];
+            case "Entertainment: Books":
+                return CATEGORIA.values()[2];
+            case "Entertainment: Film":
+                return CATEGORIA.values()[3];
+            case "Entertainment: Music":
+                return CATEGORIA.values()[4];
+            case "Entertainment: Musicals & Theatres":
+                return CATEGORIA.values()[5];
+            case "Entertainment: Television":
+                return CATEGORIA.values()[6];
+            case "Entertainment: Video Games":
+                return CATEGORIA.values()[7];
+            case "Entertainment: Board Games":
+                return CATEGORIA.values()[8];
+            case "Science & Nature":
+                return CATEGORIA.values()[9];
+            case "Science: Computers":
+                return CATEGORIA.values()[10];
+            case "Science: Mathematics":
+                return CATEGORIA.values()[11];
+            case "Mythology":
+                return CATEGORIA.values()[12];
+            case "Sports":
+                return CATEGORIA.values()[13];
+            case "Geography":
+                return CATEGORIA.values()[14];
+            case "History":
+                return CATEGORIA.values()[15];
+            case "Politics":
+                return CATEGORIA.values()[16];
+            case "Art":
+                return CATEGORIA.values()[17];
+            case "Celebrities":
+                return CATEGORIA.values()[18];
+            case "Animals":
+                return CATEGORIA.values()[19];
+            case "Vehicles":
+                return CATEGORIA.values()[20];
+            case "Entertainment: Comics":
+                return CATEGORIA.values()[21];
+            case "Science: Gadgets":
+                return CATEGORIA.values()[22];
+            case "Entertainment: Japanese Anime & Manga":
+                return CATEGORIA.values()[23];
+            case "Entertainment: Cartoon & Animations":
+                return CATEGORIA.values()[24];
+        }
+
+        return CATEGORIA.AnyCategory;
     }
 };

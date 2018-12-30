@@ -1,15 +1,18 @@
 package com.garcia.adrian.triviaapp.model.menu;
 
+import com.garcia.adrian.triviaapp.enums.CATEGORIA;
 import com.garcia.adrian.triviaapp.model.menu.EstiloJuegoBase;
 
 public class ModoCategoria extends EstiloJuegoBase {
 
     private String maximaPuntuacion;    // Para categoria
     private String totalAcertadas;      // Para categoria
+    private CATEGORIA categoria;
 
 
-    public ModoCategoria(String titulo, String maximaPuntuacion, String totalAcertadas) {
+    public ModoCategoria(String titulo, CATEGORIA categoria, String maximaPuntuacion, String totalAcertadas) {
         super(titulo);
+        this.categoria = categoria;
         this.maximaPuntuacion = maximaPuntuacion;
         this.totalAcertadas = totalAcertadas;
     }
@@ -28,5 +31,13 @@ public class ModoCategoria extends EstiloJuegoBase {
 
     public void setTotalAcertadas(String totalAcertadas) {
         this.totalAcertadas = totalAcertadas;
+    }
+
+    public CATEGORIA getCategoria() {
+        return categoria;
+    }
+
+    public void setCategoria(CATEGORIA categoria) {
+        this.categoria = categoria;
     }
 }

@@ -9,21 +9,20 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+
+import com.garcia.adrian.triviaapp.model.menu.ModoJuego;
 import com.garcia.adrian.triviaapp.R;
-import com.garcia.adrian.triviaapp.model.menu.ModoCategoria;
 
 import java.util.List;
 
-public class ModoCategoryAdapter extends RecyclerView.Adapter<ModoCategoryAdapter.ViewHolder> {
-    private List<ModoCategoria> modoJuegos;
+public class ModoJuegoAdapter extends RecyclerView.Adapter<ModoJuegoAdapter.ViewHolder> {
+    private List<ModoJuego> modoJuegos;
     private int layout;
     private Activity activity;
     private OnItemClickListener listener;
 
-    //TODO: Mirar si sirve para algo el ViewGroup
-    private ViewGroup viewGroup;
 
-    public ModoCategoryAdapter(List<ModoCategoria> modoJuegos, int layout, Activity activity, OnItemClickListener listener) {
+    public ModoJuegoAdapter(List<ModoJuego> modoJuegos, int layout, Activity activity, OnItemClickListener listener) {
         this.modoJuegos = modoJuegos;
         this.layout = layout;
         this.activity = activity;
@@ -32,27 +31,24 @@ public class ModoCategoryAdapter extends RecyclerView.Adapter<ModoCategoryAdapte
 
     @NonNull
     @Override
-    public ModoCategoryAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
+    public ModoJuegoAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         View view= LayoutInflater.from(activity).inflate(layout,viewGroup, false);
-        ModoCategoryAdapter.ViewHolder viewHolder= new ModoCategoryAdapter.ViewHolder(view);
-
-        this.viewGroup = viewGroup;
+        ViewHolder viewHolder= new ViewHolder(view);
 
         return viewHolder;
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ModoCategoryAdapter.ViewHolder viewHolder, int i) {
-        final ModoCategoria modo = modoJuegos.get(i);
+    public void onBindViewHolder(@NonNull ModoJuegoAdapter.ViewHolder viewHolder, int i) {
+        final ModoJuego modoJuego = modoJuegos.get(i);
 
-        viewHolder.textTitulo.setText(modo.getTitulo());
-        viewHolder.textMaxPuntuacion.setText(modo.getMaximaPuntuacion());
-        viewHolder.textMaxAcertadas.setText(modo.getTotalAcertadas());
+        viewHolder.textTitulo.setText(modoJuego.getTitulo());
+        viewHolder.textViewDescripcion.setText(modoJuego.getDescripcion());
 
         viewHolder.linear.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                listener.onItemClick(v, modo);
+                listener.onItemClick(v, modoJuego);
             }
         });
     }
@@ -65,21 +61,19 @@ public class ModoCategoryAdapter extends RecyclerView.Adapter<ModoCategoryAdapte
     public class ViewHolder extends RecyclerView.ViewHolder {
         private LinearLayout linear;
         private TextView textTitulo;
-        private TextView textMaxPuntuacion;
-        private TextView textMaxAcertadas;
-
+        private TextView textViewDescripcion;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
             textTitulo= itemView.findViewById(R.id.textViewTitulo);
-            textMaxPuntuacion = itemView.findViewById(R.id.textViewMaxPuntuacion);
-            textMaxAcertadas = itemView.findViewById(R.id.textViewMaxAcertadas);
+            textViewDescripcion= itemView.findViewById(R.id.textViewDescripcion);
 
             linear = itemView.findViewById(R.id.linear);
+
         }
     }
 
     public interface OnItemClickListener{
-        void onItemClick(View vista, ModoCategoria modo);
+        void onItemClick(View vista, ModoJuego modo);
     }
 }
