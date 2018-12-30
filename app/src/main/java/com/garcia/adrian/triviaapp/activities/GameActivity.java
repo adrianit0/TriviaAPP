@@ -9,27 +9,35 @@ import android.net.NetworkInfo;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.garcia.adrian.triviaapp.R;
+import com.garcia.adrian.triviaapp.enums.CATEGORIA;
+import com.garcia.adrian.triviaapp.enums.DIFICULTAD;
 import com.garcia.adrian.triviaapp.fragments.FragmentJuegoPregunta;
 import com.garcia.adrian.triviaapp.fragments.FragmentJuegoRespuestas;
 import com.garcia.adrian.triviaapp.model.juego.PreguntaJuego;
 import com.garcia.adrian.triviaapp.model.juego.PreguntaJuegoViewModel;
+import com.garcia.adrian.triviaapp.model.menu.ModoCategoria;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class GameActivity extends AppCompatActivity implements FragmentJuegoPregunta.OnQuestionSend, FragmentJuegoRespuestas.OnQuestionSend {
+public class GameActivity extends AppCompatActivity implements FragmentJuegoPregunta.OnQuestionSend, FragmentJuegoRespuestas.OnAnswerSend {
 
     private ArrayList<PreguntaJuego> listaPreguntas;
     private int preguntaActual = 0;
 
-    private boolean cargado = false;
 
     private FragmentJuegoPregunta fragmentPregunta;
+    private boolean cargado = false;
     private FragmentJuegoRespuestas fragmentRespuestas;
     private PreguntaJuegoViewModel model;
+
+    // Para crear la partida
+    private ModoCategoria categoria;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,6 +87,20 @@ public class GameActivity extends AppCompatActivity implements FragmentJuegoPreg
         // Create a new {@link ArrayAdapter} of listaPreguntas
         listaPreguntas = new ArrayList<>();
 
+        // Cogemos el modo de juego si no lo tenemos ya
+        if (categoria==null) {
+            Intent intent = getIntent();
+            if (intent!=null) {
+                ModoCategoria c = (ModoCategoria) intent.getSerializableExtra("modoJuego");
+
+                Log.e("CATEGORIA_CREADA", c + "");
+                if (c != null) {
+                    categoria = c;
+                }
+            } else {
+                Log.e("CATEGORIA_NO_CREADA",  "No existe INTENT");
+            }
+        }
 
         // Get a reference to the ConnectivityManager to check state of network connectivity
         ConnectivityManager connMgr = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
@@ -91,9 +113,15 @@ public class GameActivity extends AppCompatActivity implements FragmentJuegoPreg
 
             model = ViewModelProviders.of(this).get(PreguntaJuegoViewModel.class);
 
-            model.getPreguntas().observe(this, new Observer<List<PreguntaJuego>>() {
+            preguntaActual = model.getPreguntaActual();
+
+            model.getPreguntas(10, categoria.getCategoria(), DIFICULTAD.Any, false).observe(this, new Observer<List<PreguntaJuego>>() {
                 @Override
                 public void onChanged(List<PreguntaJuego> preguntas) {
+                    // Ocultamos la barra de progreso
+                    ProgressBar progressBar = findViewById(R.id.loading_indicator);
+                    progressBar.setVisibility(View.GONE);
+
                     listaPreguntas = new ArrayList<>();
                     listaPreguntas.addAll(preguntas);
 
@@ -108,7 +136,7 @@ public class GameActivity extends AppCompatActivity implements FragmentJuegoPreg
 
     private void siguientePregunta(boolean firstTime) {
         if (!firstTime)
-            preguntaActual++;
+            model.setPreguntaActual(++preguntaActual);
 
         if (preguntaActual>=listaPreguntas.size()) {
             Toast.makeText(GameActivity.this, "NO HAY MÁS PREGUNTAS", Toast.LENGTH_SHORT).show();
@@ -116,7 +144,7 @@ public class GameActivity extends AppCompatActivity implements FragmentJuegoPreg
         }
 
         if (fragmentPregunta!=null){
-            fragmentPregunta.setPregunta(listaPreguntas.get(preguntaActual),model.getPuntuacion(),preguntaActual);
+            fragmentPregunta.setPregunta(listaPreguntas.get(preguntaActual),model.getPuntuacion(),preguntaActual, listaPreguntas.size());
         } else {
             Toast.makeText(GameActivity.this, "FRAGMENT PREGUNTA NO ENCONTRADO", Toast.LENGTH_SHORT).show();
         }

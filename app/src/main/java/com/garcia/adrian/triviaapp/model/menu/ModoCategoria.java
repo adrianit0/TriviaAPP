@@ -3,7 +3,9 @@ package com.garcia.adrian.triviaapp.model.menu;
 import com.garcia.adrian.triviaapp.enums.CATEGORIA;
 import com.garcia.adrian.triviaapp.model.menu.EstiloJuegoBase;
 
-public class ModoCategoria extends EstiloJuegoBase {
+import java.io.Serializable;
+
+public class ModoCategoria extends EstiloJuegoBase implements Serializable {
 
     private String maximaPuntuacion;    // Para categoria
     private String totalAcertadas;      // Para categoria

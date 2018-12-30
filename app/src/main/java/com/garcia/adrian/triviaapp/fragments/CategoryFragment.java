@@ -35,8 +35,6 @@ public class CategoryFragment extends Fragment {
     private RecyclerView recyclerView;
     private RecyclerView.LayoutManager layoutManager;
 
-    private ModoCategoria categoriaElegida=null;
-
 
     public CategoryFragment() {
         // Required empty public constructor
@@ -65,36 +63,9 @@ public class CategoryFragment extends Fragment {
 
             @Override
             public void onItemClick(View vista, ModoCategoria modo) {
-                // Si hemos escogido un modo no permitiremos que lo vuelva a escoger otro hasta haber entrado
-                if (categoriaElegida!=null) {
-                    return;
-                }
-                categoriaElegida = modo;
-
-
-                // Carga las preguntas antes de empezar la partida para no tener que cargarla dentro
-
-                ConnectivityManager connMgr = (ConnectivityManager) getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
-
-                NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
-
-                if (networkInfo != null && networkInfo.isConnected()) {
-                    PreguntaJuegoViewModel model = ViewModelProviders.of(getActivity()).get(PreguntaJuegoViewModel.class);
-
-                    model.getPreguntas(modo).observe(getActivity(), new Observer<List<PreguntaJuego>>() {
-                        @Override
-                        public void onChanged(List<PreguntaJuego> preguntas) {
-                            // Cuando esté cargado liberamos la categoria elegida y nos vamos al otro activity
-                            categoriaElegida = null;
-                            Intent intent = new Intent(getActivity(), GameActivity.class);
-
-                            startActivity(intent);
-                        }
-                    });
-
-                } else {
-                    (Toast.makeText(getActivity(), R.string.no_internet_connection, Toast.LENGTH_LONG)).show();
-                }
+                Intent intent = new Intent(getActivity(), GameActivity.class);
+                intent.putExtra("modoJuego", modo);
+                startActivity(intent);
             }
         });
 

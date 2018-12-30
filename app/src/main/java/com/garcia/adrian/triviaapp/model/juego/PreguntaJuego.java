@@ -18,6 +18,7 @@ public class PreguntaJuego {
     private String enunciado;
 
     private String[] opciones;  // La primera respuesta será siempre la correcta.
+    private int correctAnswer;  // Devuelve la respuesta correcta
 
 
     public PreguntaJuego(int id, CATEGORIA categoria, String tipo, DIFICULTAD dificultad, String enunciado, String[] opciones) {
@@ -48,14 +49,31 @@ public class PreguntaJuego {
         String[] _opciones = new String[size];
 
         int[] _valores = new int[size];
-        for (int i = 0; i < _valores.length; i++) {
+        for (int i = 0; i < size; i++) {
             _valores[i]=i;
         }
 
+        for (int i = 0; i < size; i++){
+            int randomPos = (int)(Math.random()*((double)(size-i)));
+            int lastPos = size-i-1;
+            int aux = _valores[randomPos];
+            _valores[randomPos]= _valores[size-i-1];
+            _valores[lastPos]=aux;
+
+            if (aux==0)
+                correctAnswer=lastPos;
+        }
+
+        for (int i = 0; i < size; i++) {
+            _opciones[i] = this.opciones[_valores[i]];
+        }
 
         return _opciones;
     }
 
+    public int getCorrectAnswer() {
+        return correctAnswer;
+    }
 
     public String getEnunciado() {
         return enunciado;

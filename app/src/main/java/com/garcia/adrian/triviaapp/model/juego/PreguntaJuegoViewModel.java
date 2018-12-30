@@ -33,6 +33,7 @@ public class PreguntaJuegoViewModel extends AndroidViewModel {
 
     private MutableLiveData<List<PreguntaJuego>> preguntasJuego;
     private int puntuacion=0;
+    private int preguntaActual=0;
     private Application aplicacion;
     private static final String REQUEST_URL = "https://opentdb.com/api.php";
 
@@ -41,6 +42,7 @@ public class PreguntaJuegoViewModel extends AndroidViewModel {
         this.aplicacion = aplicacion;
     }
 
+    // Método por defecto para descargar los datos de las preguntas
     public LiveData<List<PreguntaJuego>> getPreguntas(boolean forzar) {
         if (preguntasJuego==null || forzar) {
             preguntasJuego= new MutableLiveData<>();
@@ -50,8 +52,18 @@ public class PreguntaJuegoViewModel extends AndroidViewModel {
         return preguntasJuego;
     }
 
+    // Sobrecarga por defecto, cogerá las preguntas sin forzar que se vuelvan a descargar los datos
     public LiveData<List<PreguntaJuego>> getPreguntas() {
         return getPreguntas(false);
+    }
+
+    //Carga una serie de preguntas a partir de unos requisitos
+    public LiveData<List<PreguntaJuego>> getPreguntas(int numeroPreguntas, CATEGORIA categoria, DIFICULTAD dificultad, boolean forzar) {
+        if (preguntasJuego==null || forzar) {
+            preguntasJuego= new MutableLiveData<>();
+            cargarPreguntas(numeroPreguntas, categoria, dificultad);
+        }
+        return preguntasJuego;
     }
 
     public int getPuntuacion () {
@@ -62,14 +74,15 @@ public class PreguntaJuegoViewModel extends AndroidViewModel {
         puntuacion+=puntos;
     }
 
-    //Carga unas partidas del modo categoria
-    public LiveData<List<PreguntaJuego>> getPreguntas(ModoCategoria categoria) {
-        preguntasJuego= new MutableLiveData<>();
-        cargarPreguntas(10, categoria.getCategoria(), DIFICULTAD.Any);
-        return preguntasJuego;
+    public int getPreguntaActual() {
+        return preguntaActual;
     }
 
-    private void cargarPreguntas (int numero, CATEGORIA categoria, DIFICULTAD dificultad) {
+    public void setPreguntaActual(int p) {
+        preguntaActual=p;
+    }
+
+    private void cargarPreguntas (int cantidadPreguntas, CATEGORIA categoria, DIFICULTAD dificultad) {
         Log.e("CARGANDO_PREGUNTAS", "Las preguntas estan siendo cargada. CATEGORIA: "+ categoria+ " ID: "+categoria.getID());
 
         String tipo = "multiple";       // Tipo: multiple, boolean, any
@@ -77,7 +90,7 @@ public class PreguntaJuegoViewModel extends AndroidViewModel {
         Uri baseUri = Uri.parse(REQUEST_URL);
         Uri.Builder uriBuilder = baseUri.buildUpon();
 
-        uriBuilder.appendQueryParameter("amount", numero+"");
+        uriBuilder.appendQueryParameter("amount", cantidadPreguntas+"");
         if (categoria.getID()>0)
             uriBuilder.appendQueryParameter("category", categoria.getID()+"");
         if (!dificultad.equals("any"))
@@ -99,7 +112,5 @@ public class PreguntaJuegoViewModel extends AndroidViewModel {
             }
         });
         requestQueue.add(request);
-
     }
-
 }

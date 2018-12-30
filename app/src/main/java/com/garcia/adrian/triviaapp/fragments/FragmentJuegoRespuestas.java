@@ -13,12 +13,12 @@ import com.garcia.adrian.triviaapp.model.juego.PreguntaJuego;
 
 public class FragmentJuegoRespuestas extends Fragment {
 
-    private OnQuestionSend callback;
+    private OnAnswerSend callback;
 
     private Button[] botones;
 
     private boolean respondido = false;
-    private int correctAnswer = 0;
+    private PreguntaJuego pregunta;
 
     public FragmentJuegoRespuestas() {
         // Required empty public constructor
@@ -45,7 +45,7 @@ public class FragmentJuegoRespuestas extends Fragment {
 
                     // Bloqueamos para evitar poder responder otra respuesta.
                     respondido=true;
-                    boolean acertado = x==correctAnswer;
+                    boolean acertado = x==pregunta.getCorrectAnswer();
                     ((Button)v).setTextColor((acertado)?getResources().getColor(R.color.colorRespuestaCorrecta):getResources().getColor(R.color.colorRespuestaIncorrecta));
 
                     // Siguiente pregunta
@@ -63,8 +63,9 @@ public class FragmentJuegoRespuestas extends Fragment {
 
     public void setRespuestas (PreguntaJuego pregunta) {
         respondido = false;
+        this.pregunta=pregunta;
 
-        String[] opciones = pregunta.getOpciones();
+        String[] opciones = pregunta.getOpcionesRandomly();
         for (int i = 0; i < opciones.length; i++) {
             botones[i].setTextColor(getResources().getColor(R.color.colorPregunta));
             botones[i].setText(opciones[i]);
@@ -83,13 +84,13 @@ public class FragmentJuegoRespuestas extends Fragment {
         super.onAttach(context);
 
         try {
-            callback = (OnQuestionSend) context;
+            callback = (OnAnswerSend) context;
         }catch (ClassCastException e){
             System.out.println("Error: deberia implementar la interfaz");
         }
     }
 
-    public interface OnQuestionSend {
+    public interface OnAnswerSend {
         void onAnswerChange();
         void onStartAnimation(boolean acertada);
     }

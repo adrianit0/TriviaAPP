@@ -55,12 +55,12 @@ public class FragmentJuegoPregunta extends Fragment {
         new EsperarAsyncTask().execute(antiguosPuntos, antiguosPuntos+pregunta.getDificultad().getPuntuacion());
     }
 
-    public void setPregunta (PreguntaJuego pregunta, int puntosActuales, int noPregunta) {
+    public void setPregunta (PreguntaJuego pregunta, int puntosActuales, int noPregunta, int totalPreguntas) {
         this.pregunta = pregunta;
         this.antiguosPuntos=puntosActuales;
 
         textoTotalPuntos.setText(puntosActuales+"");
-        textoNumeroPreguntas.setText((noPregunta+1)+"/10");
+        textoNumeroPreguntas.setText((noPregunta+1)+"/"+totalPreguntas);
         textoEnunciado.setText(pregunta.getEnunciado());
         textoPuntos.setText(pregunta.getDificultad().getPuntuacion()+"");
         textoCategoria.setText(pregunta.getCategoria().getName(getContext()));
