@@ -20,6 +20,8 @@ public class PreguntaJuego {
     private String[] opciones;  // La primera respuesta será siempre la correcta.
     private int correctAnswer;  // Devuelve la respuesta correcta
 
+    private int yourAnswer;     // Tu respuesta
+
 
     public PreguntaJuego(int id, CATEGORIA categoria, String tipo, DIFICULTAD dificultad, String enunciado, String[] opciones) {
         this.id = id;
@@ -28,6 +30,8 @@ public class PreguntaJuego {
         this.dificultad = dificultad;
         this.enunciado = enunciado;
         this.opciones = opciones;
+
+        this.yourAnswer=-1;
     }
 
     public PreguntaJuego(int id, String enunciado, String[] opciones) {
@@ -38,6 +42,8 @@ public class PreguntaJuego {
         tipo = "any";
         dificultad = DIFICULTAD.Any;
         categoria = CATEGORIA.AnyCategory;
+
+        this.yourAnswer=-1;
     }
 
     /**
@@ -73,6 +79,14 @@ public class PreguntaJuego {
 
     public int getCorrectAnswer() {
         return correctAnswer;
+    }
+
+    public void setYourAnswer(int yourAnswer) {
+        this.yourAnswer = yourAnswer;
+    }
+
+    public boolean isCorrect () {
+        return correctAnswer==yourAnswer;
     }
 
     public String getEnunciado() {

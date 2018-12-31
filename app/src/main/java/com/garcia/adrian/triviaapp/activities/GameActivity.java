@@ -14,13 +14,11 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.garcia.adrian.triviaapp.R;
-import com.garcia.adrian.triviaapp.enums.CATEGORIA;
-import com.garcia.adrian.triviaapp.enums.DIFICULTAD;
 import com.garcia.adrian.triviaapp.fragments.FragmentJuegoPregunta;
 import com.garcia.adrian.triviaapp.fragments.FragmentJuegoRespuestas;
 import com.garcia.adrian.triviaapp.model.juego.PreguntaJuego;
 import com.garcia.adrian.triviaapp.model.juego.PreguntaJuegoViewModel;
-import com.garcia.adrian.triviaapp.model.menu.ModoCategoria;
+import com.garcia.adrian.triviaapp.model.menu.ModoJuego;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,7 +35,7 @@ public class GameActivity extends AppCompatActivity implements FragmentJuegoPreg
     private PreguntaJuegoViewModel model;
 
     // Para crear la partida
-    private ModoCategoria categoria;
+    private ModoJuego modoSeleccionado;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,8 +49,18 @@ public class GameActivity extends AppCompatActivity implements FragmentJuegoPreg
     }
 
     @Override
-    public void onQuestionChange() {
-        // Para que se muestre la pregunta tiene que haber cargado antes el otro fragment
+    public void onQuestionLoaded() {
+        // Para que se muestre la pregunta tiene que haber cargado antes el fragment de las respuestas
+        if (!cargado) {
+            cargado=true;
+            return;
+        }
+        actualizarContenido();
+    }
+
+    @Override
+    public void onAnswerLoaded() {
+        // Para que se muestre la pregunta tiene que haber cargado antes el fragment de las preguntas
         if (!cargado) {
             cargado=true;
             return;
@@ -68,16 +76,6 @@ public class GameActivity extends AppCompatActivity implements FragmentJuegoPreg
     }
 
     @Override
-    public void onAnswerChange() {
-        // Para que se muestre la pregunta tiene que haber cargado antes el otro fragment
-        if (!cargado) {
-            cargado=true;
-            return;
-        }
-        actualizarContenido();
-    }
-
-    @Override
     public void nextAnswer() {
         siguientePregunta(false);
     }
@@ -88,14 +86,13 @@ public class GameActivity extends AppCompatActivity implements FragmentJuegoPreg
         listaPreguntas = new ArrayList<>();
 
         // Cogemos el modo de juego si no lo tenemos ya
-        if (categoria==null) {
+        if (modoSeleccionado ==null) {
             Intent intent = getIntent();
             if (intent!=null) {
-                ModoCategoria c = (ModoCategoria) intent.getSerializableExtra("modoJuego");
+                ModoJuego c = (ModoJuego) intent.getSerializableExtra("modoJuego");
 
-                Log.e("CATEGORIA_CREADA", c + "");
                 if (c != null) {
-                    categoria = c;
+                    modoSeleccionado = c;
                 }
             } else {
                 Log.e("CATEGORIA_NO_CREADA",  "No existe INTENT");
@@ -115,7 +112,7 @@ public class GameActivity extends AppCompatActivity implements FragmentJuegoPreg
 
             preguntaActual = model.getPreguntaActual();
 
-            model.getPreguntas(10, categoria.getCategoria(), DIFICULTAD.Any, false).observe(this, new Observer<List<PreguntaJuego>>() {
+            model.getPreguntas(modoSeleccionado.getNumeroPreguntas(), modoSeleccionado.getCategoria(), modoSeleccionado.getDificultad(), false).observe(this, new Observer<List<PreguntaJuego>>() {
                 @Override
                 public void onChanged(List<PreguntaJuego> preguntas) {
                     // Ocultamos la barra de progreso
@@ -135,11 +132,20 @@ public class GameActivity extends AppCompatActivity implements FragmentJuegoPreg
     }
 
     private void siguientePregunta(boolean firstTime) {
-        if (!firstTime)
+        // Si es la primera se mostraran los LinearLayout, en caso contrario suma 1 el contador
+        if (firstTime) {
+            fragmentPregunta.iniciarPartida();
+            fragmentRespuestas.iniciarPartida();
+        } else {
             model.setPreguntaActual(++preguntaActual);
+        }
+
 
         if (preguntaActual>=listaPreguntas.size()) {
             Toast.makeText(GameActivity.this, "NO HAY MÁS PREGUNTAS", Toast.LENGTH_SHORT).show();
+            //TODO: Añadir
+            fragmentPregunta.finalizarPartida(getPreguntasCorrectas(), listaPreguntas.size(), model.getPuntuacion());
+            fragmentRespuestas.finalizarPartida();
             return;
         }
 
@@ -154,5 +160,15 @@ public class GameActivity extends AppCompatActivity implements FragmentJuegoPreg
         } else {
             Toast.makeText(GameActivity.this, "FRAGMENT  RESPUESTAS NO ENCONTRADO", Toast.LENGTH_SHORT).show();
         }
+    }
+
+    // Devuelve el número de preguntas correctas
+    private int getPreguntasCorrectas () {
+        int count = 0;
+        for(PreguntaJuego pj : listaPreguntas) {
+            if (pj.isCorrect())
+                count++;
+        }
+        return count;
     }
 }

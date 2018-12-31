@@ -13,7 +13,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_margin="10dp"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:visibility="visible">
 
         <!-- Número de pregunta y cantidad total de puntos -->
         <LinearLayout
@@ -153,6 +154,71 @@
                     android:textColor="@color/colorPregunta"
                     android:textSize="16sp" />
             </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/fragmentLinearGameOver"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="10dp"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:visibility="visible">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="YA HAS COMPLETADO TODAS LAS PREGUNTAS"
+            android:textSize="24sp"
+
+            android:gravity="center"
+            android:padding="8dp"
+            android:textAlignment="gravity"
+            android:textColor="@color/colorPregunta"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:padding="4dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/juegoFinalAcertadas"
+                android:layout_marginRight="8sp"
+                android:textColor="@color/colorPreguntaWeak"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/fragmentPreguntaAcertadasFinal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="3/10"
+                android:textColor="@color/colorPregunta"
+                android:textSize="16sp" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:padding="4dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/juegoFinalPuntos"
+                android:layout_marginRight="8sp"
+                android:textColor="@color/colorPreguntaWeak"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/fragmentPreguntaPuntosFinal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="800"
+                android:textColor="@color/colorPregunta"
+                android:textSize="16sp" />
         </LinearLayout>
     </LinearLayout>
 </FrameLayout>

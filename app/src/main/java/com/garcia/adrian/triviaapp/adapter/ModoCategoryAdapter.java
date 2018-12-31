@@ -10,12 +10,12 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.garcia.adrian.triviaapp.R;
-import com.garcia.adrian.triviaapp.model.menu.ModoCategoria;
+import com.garcia.adrian.triviaapp.model.menu.ModoJuego;
 
 import java.util.List;
 
 public class ModoCategoryAdapter extends RecyclerView.Adapter<ModoCategoryAdapter.ViewHolder> {
-    private List<ModoCategoria> modoJuegos;
+    private List<ModoJuego> modoJuegos;
     private int layout;
     private Activity activity;
     private OnItemClickListener listener;
@@ -23,7 +23,7 @@ public class ModoCategoryAdapter extends RecyclerView.Adapter<ModoCategoryAdapte
     //TODO: Mirar si sirve para algo el ViewGroup
     private ViewGroup viewGroup;
 
-    public ModoCategoryAdapter(List<ModoCategoria> modoJuegos, int layout, Activity activity, OnItemClickListener listener) {
+    public ModoCategoryAdapter(List<ModoJuego> modoJuegos, int layout, Activity activity, OnItemClickListener listener) {
         this.modoJuegos = modoJuegos;
         this.layout = layout;
         this.activity = activity;
@@ -43,11 +43,18 @@ public class ModoCategoryAdapter extends RecyclerView.Adapter<ModoCategoryAdapte
 
     @Override
     public void onBindViewHolder(@NonNull ModoCategoryAdapter.ViewHolder viewHolder, int i) {
-        final ModoCategoria modo = modoJuegos.get(i);
+        final ModoJuego modo = modoJuegos.get(i);
 
         viewHolder.textTitulo.setText(modo.getTitulo());
-        viewHolder.textMaxPuntuacion.setText(modo.getMaximaPuntuacion());
-        viewHolder.textMaxAcertadas.setText(modo.getTotalAcertadas());
+
+        if (viewHolder.textMaxPuntuacion!=null)
+            viewHolder.textMaxPuntuacion.setText(modo.getMaximaPuntuacion());
+
+        if (viewHolder.textMaxAcertadas!=null)
+            viewHolder.textMaxAcertadas.setText(modo.getTotalAcertadas());
+
+        if (viewHolder.textDescripcion!=null)
+            viewHolder.textDescripcion.setText(modo.getDescripcion());
 
         viewHolder.linear.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -67,6 +74,7 @@ public class ModoCategoryAdapter extends RecyclerView.Adapter<ModoCategoryAdapte
         private TextView textTitulo;
         private TextView textMaxPuntuacion;
         private TextView textMaxAcertadas;
+        private TextView textDescripcion;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -75,11 +83,13 @@ public class ModoCategoryAdapter extends RecyclerView.Adapter<ModoCategoryAdapte
             textMaxPuntuacion = itemView.findViewById(R.id.textViewMaxPuntuacion);
             textMaxAcertadas = itemView.findViewById(R.id.textViewMaxAcertadas);
 
+            textDescripcion = itemView.findViewById(R.id.textViewDescripcion);
+
             linear = itemView.findViewById(R.id.linear);
         }
     }
 
     public interface OnItemClickListener{
-        void onItemClick(View vista, ModoCategoria modo);
+        void onItemClick(View vista, ModoJuego modo);
     }
 }

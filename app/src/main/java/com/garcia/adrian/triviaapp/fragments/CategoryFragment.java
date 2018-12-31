@@ -1,11 +1,6 @@
 package com.garcia.adrian.triviaapp.fragments;
 
-import android.arch.lifecycle.Observer;
-import android.arch.lifecycle.ViewModelProviders;
-import android.content.Context;
 import android.content.Intent;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
@@ -14,23 +9,19 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.garcia.adrian.triviaapp.activities.GameActivity;
 import com.garcia.adrian.triviaapp.enums.CATEGORIA;
 import com.garcia.adrian.triviaapp.R;
 import com.garcia.adrian.triviaapp.adapter.ModoCategoryAdapter;
-import com.garcia.adrian.triviaapp.model.juego.PreguntaJuego;
-import com.garcia.adrian.triviaapp.model.juego.PreguntaJuegoViewModel;
-import com.garcia.adrian.triviaapp.model.menu.ModoCategoria;
+import com.garcia.adrian.triviaapp.model.menu.ModoJuego;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class CategoryFragment extends Fragment {
 
     private ModoCategoryAdapter mAdapter;
-    private ArrayList<ModoCategoria> categorias;
+    private ArrayList<ModoJuego> categorias;
 
     private RecyclerView recyclerView;
     private RecyclerView.LayoutManager layoutManager;
@@ -57,12 +48,12 @@ public class CategoryFragment extends Fragment {
 
         // Añadimos todas las categorias
         for (CATEGORIA c : listaCategoria)
-            categorias.add (new ModoCategoria(c.getName(this.getContext()), c,"0", "0"));
+            categorias.add (new ModoJuego(c.getName(this.getContext()), c,"0", "0"));
 
         mAdapter = new ModoCategoryAdapter(categorias, R.layout.category_row, getActivity(), new ModoCategoryAdapter.OnItemClickListener(){
 
             @Override
-            public void onItemClick(View vista, ModoCategoria modo) {
+            public void onItemClick(View vista, ModoJuego modo) {
                 Intent intent = new Intent(getActivity(), GameActivity.class);
                 intent.putExtra("modoJuego", modo);
                 startActivity(intent);

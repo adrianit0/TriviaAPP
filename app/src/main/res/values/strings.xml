@@ -76,6 +76,11 @@
     <string name="juegoDificultad">Difficulty: </string>
     <string name="juegoPuntosPregunta"> puntos</string>
 
+    <!-- FIN DE PARTIDA -->
+    <string name="juegoFinalAcertadas">Correct answers: </string>
+    <string name="juegoFinalPuntos">Total points: </string>
+    <string name="juegoFinalVolver">BACK TO MENU</string>
+
     <!-- AVISOS Y ERRORES -->
     <string name="no_internet_connection">No internet connection!</string>
 </resources>

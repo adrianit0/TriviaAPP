@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.LinearLayout;
 
 import com.garcia.adrian.triviaapp.R;
 import com.garcia.adrian.triviaapp.model.juego.PreguntaJuego;
@@ -15,7 +16,11 @@ public class FragmentJuegoRespuestas extends Fragment {
 
     private OnAnswerSend callback;
 
+    private LinearLayout layoutRespuesta;
     private Button[] botones;
+    private LinearLayout layoutRespuestaGameOver;
+    private Button botonAtras;
+
 
     private boolean respondido = false;
     private PreguntaJuego pregunta;
@@ -28,11 +33,18 @@ public class FragmentJuegoRespuestas extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view= inflater.inflate(R.layout.fragment_respuestas, container, false);
 
+        layoutRespuesta = view.findViewById(R.id.fragmentLinearRespuestas);
         botones = new Button[4];
         botones[0] = (Button) view.findViewById(R.id.respuesta1);
         botones[1] = (Button) view.findViewById(R.id.respuesta2);
         botones[2] = (Button) view.findViewById(R.id.respuesta3);
         botones[3] = (Button) view.findViewById(R.id.respuesta4);
+
+        layoutRespuestaGameOver = view.findViewById(R.id.fragmentLinearRespuestasGameOVer);
+        botonAtras = (Button) view.findViewById(R.id.botonVolver);
+
+        layoutRespuesta.setVisibility(View.GONE);
+        layoutRespuestaGameOver.setVisibility(View.GONE);
 
         for (int i = 0; i < botones.length; i++) {
             final int x = i;
@@ -45,8 +57,15 @@ public class FragmentJuegoRespuestas extends Fragment {
 
                     // Bloqueamos para evitar poder responder otra respuesta.
                     respondido=true;
-                    boolean acertado = x==pregunta.getCorrectAnswer();
+
+                    pregunta.setYourAnswer(x);
+                    boolean acertado = pregunta.isCorrect();
+
                     ((Button)v).setTextColor((acertado)?getResources().getColor(R.color.colorRespuestaCorrecta):getResources().getColor(R.color.colorRespuestaIncorrecta));
+
+                    // Si no lo acierta te dirá cual es la respuesta correcta.
+                    if (!acertado)
+                        botones[pregunta.getCorrectAnswer()].setTextColor(getResources().getColor(R.color.colorRespuestaCorrecta));
 
                     // Siguiente pregunta
                     if (callback!=null)
@@ -56,7 +75,7 @@ public class FragmentJuegoRespuestas extends Fragment {
         }
 
         if (callback!=null)
-            callback.onAnswerChange();
+            callback.onAnswerLoaded();
 
         return view;
     }
@@ -77,6 +96,16 @@ public class FragmentJuegoRespuestas extends Fragment {
         }
     }
 
+    // Muestra el LinearLayout de las preguntas
+    public void iniciarPartida() {
+        layoutRespuesta.setVisibility(View.VISIBLE);
+    }
+
+    // Muestra el LinearLayout de fin de partida
+    public void finalizarPartida() {
+        layoutRespuesta.setVisibility(View.GONE);
+        layoutRespuestaGameOver.setVisibility(View.VISIBLE);
+    }
 
 
     @Override
@@ -91,7 +120,7 @@ public class FragmentJuegoRespuestas extends Fragment {
     }
 
     public interface OnAnswerSend {
-        void onAnswerChange();
+        void onAnswerLoaded();
         void onStartAnimation(boolean acertada);
     }
 

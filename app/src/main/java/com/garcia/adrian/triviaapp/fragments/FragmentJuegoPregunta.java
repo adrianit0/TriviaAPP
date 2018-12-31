@@ -1,15 +1,14 @@
 package com.garcia.adrian.triviaapp.fragments;
 
 import android.content.Context;
-import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.Trace;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.garcia.adrian.triviaapp.R;
@@ -17,12 +16,19 @@ import com.garcia.adrian.triviaapp.model.juego.PreguntaJuego;
 
 public class FragmentJuegoPregunta extends Fragment {
 
+    // Durante las preguntas
+    private LinearLayout layoutPreguntas;
     private TextView textoTotalPuntos;
     private TextView textoNumeroPreguntas;
     private TextView textoEnunciado;
     private TextView textoPuntos;
     private TextView textoCategoria;
     private TextView textoDificultad;
+
+    // Fin de la partidan
+    private LinearLayout layoutGameOver;
+    private TextView textoTotalAcertadasGameOver;
+    private TextView textoTotalPuntosGameOver;
 
     private PreguntaJuego pregunta;
     private int antiguosPuntos;
@@ -37,6 +43,8 @@ public class FragmentJuegoPregunta extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view= inflater.inflate(R.layout.fragment_pregunta, container, false);
 
+        // Partida
+        layoutPreguntas = view.findViewById(R.id.fragmentLinearPregunta);
         textoTotalPuntos = view.findViewById(R.id.fragmentPreguntaTotalPuntos);
         textoNumeroPreguntas = view.findViewById(R.id.fragmentPreguntaNumero);
         textoEnunciado = view.findViewById(R.id.fragmentPreguntaEnunciado);
@@ -44,8 +52,17 @@ public class FragmentJuegoPregunta extends Fragment {
         textoCategoria = view.findViewById(R.id.fragmentPreguntaCategoria);
         textoDificultad = view.findViewById(R.id.fragmentPreguntaDificultad);
 
+        // Game Over
+        layoutGameOver = view.findViewById(R.id.fragmentLinearGameOver);
+        textoTotalAcertadasGameOver = view.findViewById(R.id.fragmentPreguntaAcertadasFinal);
+        textoTotalPuntosGameOver = view.findViewById(R.id.fragmentPreguntaPuntosFinal);
+
+        // Lo hago desaparecer hasta tener alguna pregunta
+        layoutPreguntas.setVisibility(View.GONE);
+        layoutGameOver.setVisibility(View.GONE);
+
         if (callback!=null)
-            callback.onQuestionChange();
+            callback.onQuestionLoaded();
 
         return view;
     }
@@ -79,12 +96,26 @@ public class FragmentJuegoPregunta extends Fragment {
     }
 
     public interface OnQuestionSend {
-        void onQuestionChange();
+        void onQuestionLoaded();
         void nextAnswer();
     }
 
-    private class EsperarAsyncTask extends AsyncTask<Integer, Void, Void> {
+    // Muestra el LinearLayout de las preguntas
+    public void iniciarPartida() {
+        layoutPreguntas.setVisibility(View.VISIBLE);
+    }
 
+    // Muestra el LinearLayout de fin de partida
+    public void finalizarPartida(int acertadas, int totalPreguntas, int puntosTotales) {
+        layoutPreguntas.setVisibility(View.GONE);
+        layoutGameOver.setVisibility(View.VISIBLE);
+
+        textoTotalAcertadasGameOver.setText(acertadas+"");
+        textoTotalPuntosGameOver.setText(puntosTotales+"/"+totalPreguntas);
+    }
+
+    // Esperar 1 segundo cada vez se resuelva una pregunta para mostrar si la ha acertado o no
+    private class EsperarAsyncTask extends AsyncTask<Integer, Void, Void> {
         private int puntos;
 
         protected Void doInBackground(Integer... puntuacion) {
@@ -93,7 +124,7 @@ public class FragmentJuegoPregunta extends Fragment {
                 if (puntuacion.length<2) {
                     return null;
                 }
-                /* No deja hacer animaciones
+                /* No deja hacer animaciones directamente por código
                 float deltaTime = 0.02f;   // Cuantos ms se dormirá cada vez que haga un Thread.sleep. 0.02 son 50 actualizaciones en 1 segundo
                 long espera = (long) (deltaTime*1000);
                 float velocidad = 0.75f;    // Velocidad de la animación, a más valor, más rapido irá
