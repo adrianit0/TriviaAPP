@@ -1,5 +1,6 @@
 package com.garcia.adrian.triviaapp.activities;
 
+import android.app.Activity;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
@@ -16,10 +17,15 @@ import android.widget.Toast;
 import com.garcia.adrian.triviaapp.R;
 import com.garcia.adrian.triviaapp.fragments.FragmentJuegoPregunta;
 import com.garcia.adrian.triviaapp.fragments.FragmentJuegoRespuestas;
+import com.garcia.adrian.triviaapp.model.historial.HistorialPartidaViewModel;
+import com.garcia.adrian.triviaapp.model.historial.HistorialPreguntasViewModel;
+import com.garcia.adrian.triviaapp.model.historial.Partida;
+import com.garcia.adrian.triviaapp.model.historial.Pregunta;
 import com.garcia.adrian.triviaapp.model.juego.PreguntaJuego;
 import com.garcia.adrian.triviaapp.model.juego.PreguntaJuegoViewModel;
 import com.garcia.adrian.triviaapp.model.menu.ModoJuego;
 
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -36,6 +42,11 @@ public class GameActivity extends AppCompatActivity implements FragmentJuegoPreg
 
     // Para crear la partida
     private ModoJuego modoSeleccionado;
+
+    // Este booleano sirve para evitar que al girar el movil cuando se ha terminado las preguntas
+    // se vuelva a guardar los datos en la base de datos SQL, por eso estará a FALSE en el momento de girar el movil
+    // Pero se pondrá a TRUE al responder una pregunta indiferentemente de donde se encuentre.
+    private boolean nextQuestion=false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,6 +80,8 @@ public class GameActivity extends AppCompatActivity implements FragmentJuegoPreg
     }
 
     @Override
+    // Del fragment respuestas, espera 1 segundo a la siguiente pregunta
+    // Tras ese segundo se ejecuta el callback "nextAnswer", que pondrá la siguiente pregunta.
     public void onStartAnimation (boolean acertado){
         if (acertado&&model!=null)
             model.ganarPuntos(listaPreguntas.get(preguntaActual).getDificultad().getPuntuacion());
@@ -76,6 +89,7 @@ public class GameActivity extends AppCompatActivity implements FragmentJuegoPreg
     }
 
     @Override
+    // Pone la siguiente pregunta
     public void nextAnswer() {
         siguientePregunta(false);
     }
@@ -137,13 +151,17 @@ public class GameActivity extends AppCompatActivity implements FragmentJuegoPreg
             fragmentPregunta.iniciarPartida();
             fragmentRespuestas.iniciarPartida();
         } else {
+            nextQuestion=true;
             model.setPreguntaActual(++preguntaActual);
         }
 
-
         if (preguntaActual>=listaPreguntas.size()) {
-            Toast.makeText(GameActivity.this, "NO HAY MÁS PREGUNTAS", Toast.LENGTH_SHORT).show();
-            //TODO: Añadir
+            if (nextQuestion) {
+                // TODO: Traducir TOAST
+                Toast.makeText(GameActivity.this, "NO HAY MÁS PREGUNTAS", Toast.LENGTH_SHORT).show();
+                guardarPreguntas();
+            }
+
             fragmentPregunta.finalizarPartida(getPreguntasCorrectas(), listaPreguntas.size(), model.getPuntuacion());
             fragmentRespuestas.finalizarPartida();
             return;
@@ -158,8 +176,35 @@ public class GameActivity extends AppCompatActivity implements FragmentJuegoPreg
         if (fragmentRespuestas!=null){
             fragmentRespuestas.setRespuestas(listaPreguntas.get(preguntaActual));
         } else {
+            // TODO: Traducir TOAST
             Toast.makeText(GameActivity.this, "FRAGMENT  RESPUESTAS NO ENCONTRADO", Toast.LENGTH_SHORT).show();
         }
+    }
+
+    private void guardarPreguntas () {
+        //TODO: Seguir
+        HistorialPartidaViewModel viewModel = ViewModelProviders.of(this).get(HistorialPartidaViewModel.class);
+
+        final int totalPreguntas = listaPreguntas.size();
+        Partida partida = new Partida (0, model.getPuntuacion(), getPreguntasCorrectas(), modoSeleccionado.getCategoria(), new Date(System.currentTimeMillis()));
+
+        viewModel.addPartida(partida, new HistorialPartidaViewModel.OnAddRowListener() {
+            @Override
+            public void onRowAdded(long id) {
+                // Ahora guardamos las preguntas
+                Pregunta[] preguntas = new Pregunta[totalPreguntas];
+
+                for (int i = 0; i < totalPreguntas; i++) {
+                    PreguntaJuego _pregunta = listaPreguntas.get(i);
+                    preguntas[i] = new Pregunta(0, _pregunta.getEnunciado(), _pregunta.getCorrectAnswerString(), _pregunta.getYourAnswerString(), _pregunta.getDificultad().getPuntuacion(), id);
+                }
+
+                ViewModelProviders.of(GameActivity.this).get(HistorialPreguntasViewModel.class).addPregunta(preguntas);
+                // TODO: Traducir TOAST
+                Toast.makeText(GameActivity.this, "Pregunta añadida a la base de datos", Toast.LENGTH_SHORT).show();
+
+            }
+        });
     }
 
     // Devuelve el número de preguntas correctas

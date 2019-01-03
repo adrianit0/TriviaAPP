@@ -3,31 +3,39 @@ package com.garcia.adrian.triviaapp.model.historial;
 
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
+import android.arch.persistence.room.TypeConverters;
 import android.content.Context;
 import android.support.annotation.NonNull;
 
 import com.garcia.adrian.triviaapp.R;
+import com.garcia.adrian.triviaapp.enums.CATEGORIA;
+import com.garcia.adrian.triviaapp.fragments.CategoryFragment;
 import com.garcia.adrian.triviaapp.model.menu.EstiloJuegoBase;
+import com.garcia.adrian.triviaapp.util.CategoriaConverter;
+import com.garcia.adrian.triviaapp.util.DateConverter;
 
-@Entity(tableName = "partida")
+import java.sql.Date;
+
+@Entity(tableName = "Partida")
 public class Partida extends EstiloJuegoBase {
 
     @PrimaryKey(autoGenerate = true)
     private long id;             // ID Partida
     @NonNull
-    private String puntuacion;
+    private int puntuacion;
     @NonNull
-    private String acertadas;
+    private int acertadas;
     @NonNull
-    private String categoria;
+    @TypeConverters({CategoriaConverter.class})
+    private CATEGORIA categoria;
     @NonNull
-    private String fecha;
+    @TypeConverters({DateConverter.class})
+    private Date fecha;
 
     public Partida () {}
 
     // Constructor para el modo historial
-    public Partida(Context context, long id, String puntuacion, String acertadas, String categoria, String fecha) {
-        super(context.getString(R.string.tituloHistorial)+" #"+id);
+    public Partida(long id, int puntuacion, int acertadas, CATEGORIA categoria, Date fecha) {
         this.id = id;
         this.puntuacion = puntuacion;
         this.acertadas = acertadas;
@@ -35,43 +43,52 @@ public class Partida extends EstiloJuegoBase {
         this.fecha = fecha;
     }
 
-    public long getId() {
-        return id;
+    @Override
+    public String getTitulo () {
+        return id+"";
     }
 
     public void setId(long id) {
         this.id = id;
     }
 
-    public String getPuntuacion() {
+    public long getId() {
+        return id;
+    }
+
+    @NonNull
+    public int getPuntuacion() {
         return puntuacion;
     }
 
-    public void setPuntuacion(String puntuacion) {
+    public void setPuntuacion(@NonNull int puntuacion) {
         this.puntuacion = puntuacion;
     }
 
-    public String getAcertadas() {
+    @NonNull
+    public int getAcertadas() {
         return acertadas;
     }
 
-    public void setAcertadas(String acertadas) {
+    public void setAcertadas(@NonNull int acertadas) {
         this.acertadas = acertadas;
     }
 
-    public String getCategoria() {
+    @NonNull
+    public CATEGORIA getCategoria() {
         return categoria;
     }
 
-    public void setCategoria(String categoria) {
+    public void setCategoria(@NonNull CATEGORIA categoria) {
         this.categoria = categoria;
     }
 
-    public String getFecha() {
+    @NonNull
+    public Date getFecha() {
         return fecha;
     }
 
-    public void setFecha(String fecha) {
+    public void setFecha(@NonNull Date fecha) {
         this.fecha = fecha;
     }
 }

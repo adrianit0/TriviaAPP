@@ -1,5 +1,7 @@
 package com.garcia.adrian.triviaapp.adapter;
 
+import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -16,7 +18,6 @@ public class CategoryAdapter extends FragmentPagerAdapter {
     }
 
     private String[] titulos = {"Modo juego", "Categorías", "Historial"};
-    private final int count = 3;
 
     @Override
     public Fragment getItem(int i) {
@@ -35,7 +36,7 @@ public class CategoryAdapter extends FragmentPagerAdapter {
 
     @Override
     public int getCount() {
-        return count;
+        return titulos.length;
     }
 
     @Nullable

@@ -110,8 +110,8 @@ public class FragmentJuegoPregunta extends Fragment {
         layoutPreguntas.setVisibility(View.GONE);
         layoutGameOver.setVisibility(View.VISIBLE);
 
-        textoTotalAcertadasGameOver.setText(acertadas+"");
-        textoTotalPuntosGameOver.setText(puntosTotales+"/"+totalPreguntas);
+        textoTotalAcertadasGameOver.setText(acertadas+"/"+totalPreguntas);
+        textoTotalPuntosGameOver.setText(puntosTotales+"");
     }
 
     // Esperar 1 segundo cada vez se resuelva una pregunta para mostrar si la ha acertado o no

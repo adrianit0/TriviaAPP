@@ -48,4 +48,7 @@ dependencies {
 
     // Live Data y View Model
     implementation "android.arch.lifecycle:extensions:$room_version"
+
+    // https://mvnrepository.com/artifact/org.apache.commons/commons-lang3
+    implementation group: 'org.apache.commons', name: 'commons-lang3', version: '3.1'
 }

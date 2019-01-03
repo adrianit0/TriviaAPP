@@ -20,8 +20,6 @@ public class ModoHistorialAdapter extends RecyclerView.Adapter<ModoHistorialAdap
     private Activity activity;
     private ModoHistorialAdapter.OnItemClickListener listener;
 
-    private ViewGroup viewGroup;
-
     public ModoHistorialAdapter(List<Partida> historials, int layout, Activity activity, ModoHistorialAdapter.OnItemClickListener listener) {
         this.historials = historials;
         this.layout = layout;
@@ -32,10 +30,8 @@ public class ModoHistorialAdapter extends RecyclerView.Adapter<ModoHistorialAdap
     @NonNull
     @Override
     public ModoHistorialAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-        View view= LayoutInflater.from(activity).inflate(layout,viewGroup, false);
+        View view= LayoutInflater.from(activity).inflate(layout, viewGroup, false);
         ModoHistorialAdapter.ViewHolder viewHolder= new ModoHistorialAdapter.ViewHolder(view);
-
-        this.viewGroup = viewGroup;
 
         return viewHolder;
     }
@@ -44,11 +40,12 @@ public class ModoHistorialAdapter extends RecyclerView.Adapter<ModoHistorialAdap
     public void onBindViewHolder(@NonNull ModoHistorialAdapter.ViewHolder viewHolder, int i) {
         final Partida historial = historials.get(i);
 
-        viewHolder.textTitulo.setText(historial.getTitulo());
-        viewHolder.textPuntuacion.setText(historial.getPuntuacion());
-        viewHolder.textCategoria.setText(historial.getCategoria());
-        viewHolder.textAcertadas.setText(historial.getAcertadas());
-        viewHolder.textFecha.setText(historial.getFecha());
+        viewHolder.textTitulo.setText(activity.getString(R.string.tituloHistorial) + " #"+ historial.getTitulo());
+
+        viewHolder.textPuntuacion.setText(historial.getPuntuacion()+"");
+        viewHolder.textCategoria.setText(historial.getCategoria().getName(activity.getApplicationContext()));
+        viewHolder.textAcertadas.setText(historial.getAcertadas()+"");
+        viewHolder.textFecha.setText(historial.getFecha().toString());
 
         viewHolder.linear.setOnClickListener(new View.OnClickListener(){
             @Override

@@ -10,6 +10,8 @@ import android.widget.Toast;
 import com.garcia.adrian.triviaapp.data.AppDatabase;
 import com.garcia.adrian.triviaapp.model.historial.Partida;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class HistorialPartidaViewModel extends AndroidViewModel {
@@ -27,8 +29,8 @@ public class HistorialPartidaViewModel extends AndroidViewModel {
         return listaPartidas;
     }
 
-    public void addPartida (Partida partida) {
-        new AddAsyncPartidaDB().execute(partida);
+    public void addPartida (Partida partida, OnAddRowListener listener) {
+        new AddAsyncPartidaDB(listener).execute(partida);
     }
 
     public void actualizarPartida (Partida partida) {
@@ -39,19 +41,26 @@ public class HistorialPartidaViewModel extends AndroidViewModel {
         new DeleteAsyncPartidaDB().execute(partida);
     }
 
+    // Para crear un callback en el momento en el que se hayase metido en la bbdd la partida
+    // Y así poder incluir las preguntas con la ID que se le ha dado
+    public interface OnAddRowListener {
+        public void onRowAdded(long id);
+    }
+
     private class AddAsyncPartidaDB extends AsyncTask<Partida, Void, Long> {
 
-        Partida partida;
+        private OnAddRowListener callback;
+
+        public AddAsyncPartidaDB (OnAddRowListener listener) {
+            callback = listener;
+        }
 
         @Override
         protected Long doInBackground(Partida... partidas) {
             long id = -1;
 
             if (partidas.length!=0) {
-                partida = partidas[0];
-                // TODO: Hacer lo que se tenga que hacer aquí
-                //String nombre = partida.getNombre();
-
+                Partida partida = partidas[0];
                 id = db.partidaDao().insertPartida(partida);
                 partida.setId(id);
             }
@@ -65,6 +74,9 @@ public class HistorialPartidaViewModel extends AndroidViewModel {
                 Toast.makeText(getApplication(), "Error añadiendo la partida!", Toast.LENGTH_SHORT).show();
             } else {
                 Toast.makeText(getApplication(), "partida Añadida!", Toast.LENGTH_SHORT).show();
+                // Ejecutamos el callback
+                if(callback!=null)
+                    callback.onRowAdded(id);
             }
         }
     }

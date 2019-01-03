@@ -8,22 +8,26 @@ import android.arch.persistence.room.Query;
 import android.arch.persistence.room.Update;
 
 import com.garcia.adrian.triviaapp.model.historial.Partida;
+import com.garcia.adrian.triviaapp.model.historial.Pregunta;
 
 import java.util.List;
 
 @Dao
 public interface PartidaDAO {
     @Insert
-    public long insertPartida (Partida product);
+    public long insertPartida (Partida partida);
 
     @Insert
-    public void insertPartidas (Partida... productos);
+    public void insertPartidas (Partida... partidas);
+
+    @Insert
+    public void insertPartidasConPreguntas (Partida partida, List<Pregunta> preguntas);
 
     @Update
-    public int updatePartida (Partida product);
+    public int updatePartida (Partida partida);
 
     @Delete
-    public int deletePartida (Partida product);
+    public int deletePartida (Partida partida);
 
     @Query("SELECT * FROM Partida WHERE id=:id")
     public Partida getPartida (long id);
@@ -33,7 +37,7 @@ public interface PartidaDAO {
 }
 
 /*
-//Contenido de mi QUERY a usar, transformar a ROOM
+//Contenido de mi QUERY a usar, transformado en ROOM
 
 // nombre BBDD
 partidas_jugadas.db

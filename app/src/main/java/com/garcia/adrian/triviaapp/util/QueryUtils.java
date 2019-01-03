@@ -20,6 +20,8 @@ import java.net.URL;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
 
+import org.apache.commons.lang3.StringEscapeUtils;
+
 /**
  * Clase que sirve para convertir el JSON extraido de internet en un array de preguntas
  */
@@ -42,7 +44,7 @@ public final class QueryUtils {
                 String category = preguntaJSON.getString("category");
                 String type = preguntaJSON.getString("type");
                 String difficulty = preguntaJSON.getString("difficulty");
-                String question = preguntaJSON.getString("question");
+                String question = convertFromHTML(preguntaJSON.getString("question"));
 
                 String[] answers = new String [(type.equals("multiple")?4:2)];
                 answers[0] =  preguntaJSON.getString("correct_answer"); // Respuesta correcta
@@ -50,7 +52,7 @@ public final class QueryUtils {
                 JSONArray incorrect = preguntaJSON.getJSONArray("incorrect_answers");
 
                 for (int k = 0; k < incorrect.length(); k++) {
-                    answers[k+1] = (String) incorrect.get(k);
+                    answers[k+1] = convertFromHTML((String) incorrect.get(k));
                 }
 
                 PreguntaJuego t = new PreguntaJuego(i, CATEGORIA.fromString(category), type, DIFICULTAD.fromString(difficulty), question, answers);
@@ -63,6 +65,9 @@ public final class QueryUtils {
         return preguntas;
     }
 
+    private static String convertFromHTML (String texto) {
+        return StringEscapeUtils.unescapeHtml4(texto);
+    }
 
     // Captura todos los datos de las preguntas
     public static ArrayList<PreguntaJuego> fetchQuestionData(String requestUrl) {

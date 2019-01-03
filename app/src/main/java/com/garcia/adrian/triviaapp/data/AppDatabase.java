@@ -6,11 +6,15 @@ import android.arch.persistence.room.RoomDatabase;
 import android.content.Context;
 
 import com.garcia.adrian.triviaapp.interfaz.PartidaDAO;
+import com.garcia.adrian.triviaapp.interfaz.PreguntaDAO;
 import com.garcia.adrian.triviaapp.model.historial.Partida;
+import com.garcia.adrian.triviaapp.model.historial.Pregunta;
 
-@Database(entities = {Partida.class}, version = 1, exportSchema = false)
+@Database(entities = {Partida.class, Pregunta.class}, version = 2, exportSchema = false)
 public abstract class AppDatabase extends RoomDatabase {
     public abstract PartidaDAO partidaDao();
+    public abstract PreguntaDAO preguntaDAO();
+
     private static AppDatabase INSTANCE=null;
 
     public static AppDatabase getInstance (final Context context) {

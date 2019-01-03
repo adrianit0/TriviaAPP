@@ -77,6 +77,14 @@ public class PreguntaJuego {
         return _opciones;
     }
 
+    public String getCorrectAnswerString () {
+        return opciones[correctAnswer];
+    }
+
+    public String getYourAnswerString () {
+        return opciones[yourAnswer];
+    }
+
     public int getCorrectAnswer() {
         return correctAnswer;
     }
