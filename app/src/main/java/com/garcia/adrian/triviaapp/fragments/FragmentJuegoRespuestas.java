@@ -74,6 +74,13 @@ public class FragmentJuegoRespuestas extends Fragment {
             });
         }
 
+        botonAtras.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //TODO: Hacer que vuelva hacia atras
+            }
+        });
+
         if (callback!=null)
             callback.onAnswerLoaded();
 

@@ -13,7 +13,7 @@ import android.view.ViewGroup;
 
 import com.garcia.adrian.triviaapp.R;
 import com.garcia.adrian.triviaapp.activities.GameActivity;
-import com.garcia.adrian.triviaapp.adapter.ModoCategoryAdapter;
+import com.garcia.adrian.triviaapp.adapter.ModoJuegoAdapter;
 import com.garcia.adrian.triviaapp.enums.CATEGORIA;
 import com.garcia.adrian.triviaapp.enums.DIFICULTAD;
 import com.garcia.adrian.triviaapp.model.menu.ModoJuego;
@@ -21,9 +21,9 @@ import com.garcia.adrian.triviaapp.model.menu.ModoJuego;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class ModeFragment extends Fragment {
+public class FragmentMenuModos extends Fragment {
 
-    private ModoCategoryAdapter mAdapter;
+    private ModoJuegoAdapter mAdapter;
     private ArrayList<ModoJuego> modoJuegos;
 
     private RecyclerView recyclerView;
@@ -31,7 +31,7 @@ public class ModeFragment extends Fragment {
     private OnGameModeClickListener callback;
 
 
-    public ModeFragment() {
+    public FragmentMenuModos() {
         // Required empty public constructor
     }
 
@@ -61,7 +61,7 @@ public class ModeFragment extends Fragment {
                 )
         );
 
-        mAdapter = new ModoCategoryAdapter(modoJuegos, R.layout.mode_row, getActivity(), new ModoCategoryAdapter.OnItemClickListener(){
+        mAdapter = new ModoJuegoAdapter(modoJuegos, R.layout.mode_row, getActivity(), new ModoJuegoAdapter.OnItemClickListener(){
             @Override
             public void onItemClick(View vista, ModoJuego modo) {
                 Intent intent = new Intent(getActivity(), GameActivity.class);

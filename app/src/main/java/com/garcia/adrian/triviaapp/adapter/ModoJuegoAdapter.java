@@ -14,7 +14,7 @@ import com.garcia.adrian.triviaapp.model.menu.ModoJuego;
 
 import java.util.List;
 
-public class ModoCategoryAdapter extends RecyclerView.Adapter<ModoCategoryAdapter.ViewHolder> {
+public class ModoJuegoAdapter extends RecyclerView.Adapter<ModoJuegoAdapter.ViewHolder> {
     private List<ModoJuego> modoJuegos;
     private int layout;
     private Activity activity;
@@ -23,7 +23,7 @@ public class ModoCategoryAdapter extends RecyclerView.Adapter<ModoCategoryAdapte
     //TODO: Mirar si sirve para algo el ViewGroup
     private ViewGroup viewGroup;
 
-    public ModoCategoryAdapter(List<ModoJuego> modoJuegos, int layout, Activity activity, OnItemClickListener listener) {
+    public ModoJuegoAdapter(List<ModoJuego> modoJuegos, int layout, Activity activity, OnItemClickListener listener) {
         this.modoJuegos = modoJuegos;
         this.layout = layout;
         this.activity = activity;
@@ -32,9 +32,9 @@ public class ModoCategoryAdapter extends RecyclerView.Adapter<ModoCategoryAdapte
 
     @NonNull
     @Override
-    public ModoCategoryAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
+    public ModoJuegoAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         View view= LayoutInflater.from(activity).inflate(layout,viewGroup, false);
-        ModoCategoryAdapter.ViewHolder viewHolder= new ModoCategoryAdapter.ViewHolder(view);
+        ModoJuegoAdapter.ViewHolder viewHolder= new ModoJuegoAdapter.ViewHolder(view);
 
         this.viewGroup = viewGroup;
 
@@ -42,7 +42,7 @@ public class ModoCategoryAdapter extends RecyclerView.Adapter<ModoCategoryAdapte
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ModoCategoryAdapter.ViewHolder viewHolder, int i) {
+    public void onBindViewHolder(@NonNull ModoJuegoAdapter.ViewHolder viewHolder, int i) {
         final ModoJuego modo = modoJuegos.get(i);
 
         viewHolder.textTitulo.setText(modo.getTitulo());

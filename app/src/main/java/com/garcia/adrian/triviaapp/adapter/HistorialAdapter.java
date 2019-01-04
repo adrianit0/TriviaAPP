@@ -14,13 +14,13 @@ import com.garcia.adrian.triviaapp.model.historial.Partida;
 
 import java.util.List;
 
-public class ModoHistorialAdapter extends RecyclerView.Adapter<ModoHistorialAdapter.ViewHolder> {
+public class HistorialAdapter extends RecyclerView.Adapter<HistorialAdapter.ViewHolder> {
     private List<Partida> historials;
     private int layout;
     private Activity activity;
-    private ModoHistorialAdapter.OnItemClickListener listener;
+    private HistorialAdapter.OnItemClickListener listener;
 
-    public ModoHistorialAdapter(List<Partida> historials, int layout, Activity activity, ModoHistorialAdapter.OnItemClickListener listener) {
+    public HistorialAdapter(List<Partida> historials, int layout, Activity activity, HistorialAdapter.OnItemClickListener listener) {
         this.historials = historials;
         this.layout = layout;
         this.activity = activity;
@@ -29,15 +29,15 @@ public class ModoHistorialAdapter extends RecyclerView.Adapter<ModoHistorialAdap
 
     @NonNull
     @Override
-    public ModoHistorialAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
+    public HistorialAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         View view= LayoutInflater.from(activity).inflate(layout, viewGroup, false);
-        ModoHistorialAdapter.ViewHolder viewHolder= new ModoHistorialAdapter.ViewHolder(view);
+        HistorialAdapter.ViewHolder viewHolder= new HistorialAdapter.ViewHolder(view);
 
         return viewHolder;
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ModoHistorialAdapter.ViewHolder viewHolder, int i) {
+    public void onBindViewHolder(@NonNull HistorialAdapter.ViewHolder viewHolder, int i) {
         final Partida historial = historials.get(i);
 
         viewHolder.textTitulo.setText(activity.getString(R.string.tituloHistorial) + " #"+ historial.getTitulo());

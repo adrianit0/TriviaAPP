@@ -2,22 +2,19 @@ package com.garcia.adrian.triviaapp.model.historial;
 
 
 import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.Ignore;
 import android.arch.persistence.room.PrimaryKey;
 import android.arch.persistence.room.TypeConverters;
-import android.content.Context;
 import android.support.annotation.NonNull;
 
-import com.garcia.adrian.triviaapp.R;
 import com.garcia.adrian.triviaapp.enums.CATEGORIA;
-import com.garcia.adrian.triviaapp.fragments.CategoryFragment;
-import com.garcia.adrian.triviaapp.model.menu.EstiloJuegoBase;
 import com.garcia.adrian.triviaapp.util.CategoriaConverter;
 import com.garcia.adrian.triviaapp.util.DateConverter;
 
 import java.sql.Date;
 
 @Entity(tableName = "Partida")
-public class Partida extends EstiloJuegoBase {
+public class Partida  {
 
     @PrimaryKey(autoGenerate = true)
     private long id;             // ID Partida
@@ -35,6 +32,7 @@ public class Partida extends EstiloJuegoBase {
     public Partida () {}
 
     // Constructor para el modo historial
+    @Ignore
     public Partida(long id, int puntuacion, int acertadas, CATEGORIA categoria, Date fecha) {
         this.id = id;
         this.puntuacion = puntuacion;
@@ -43,7 +41,6 @@ public class Partida extends EstiloJuegoBase {
         this.fecha = fecha;
     }
 
-    @Override
     public String getTitulo () {
         return id+"";
     }

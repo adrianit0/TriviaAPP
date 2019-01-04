@@ -3,7 +3,6 @@ package com.garcia.adrian.triviaapp.enums;
 import android.content.Context;
 
 import com.garcia.adrian.triviaapp.R;
-import com.garcia.adrian.triviaapp.fragments.CategoryFragment;
 
 
 // Un enum con todas las categorias con la ID de la API

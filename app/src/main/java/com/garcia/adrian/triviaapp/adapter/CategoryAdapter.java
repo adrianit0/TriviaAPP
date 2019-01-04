@@ -1,15 +1,13 @@
 package com.garcia.adrian.triviaapp.adapter;
 
-import android.content.res.Configuration;
-import android.content.res.Resources;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
-import com.garcia.adrian.triviaapp.fragments.CategoryFragment;
-import com.garcia.adrian.triviaapp.fragments.HistoryFragment;
-import com.garcia.adrian.triviaapp.fragments.ModeFragment;
+import com.garcia.adrian.triviaapp.fragments.FragmentMenuCategoria;
+import com.garcia.adrian.triviaapp.fragments.FragmentMenuHistorial;
+import com.garcia.adrian.triviaapp.fragments.FragmentMenuModos;
 
 public class CategoryAdapter extends FragmentPagerAdapter {
 
@@ -23,13 +21,13 @@ public class CategoryAdapter extends FragmentPagerAdapter {
     public Fragment getItem(int i) {
         switch (i) {
             case 0:
-                return new ModeFragment();
+                return new FragmentMenuModos();
             case 1:
-                return new CategoryFragment();
+                return new FragmentMenuCategoria();
             case 2:
-                return new HistoryFragment();
+                return new FragmentMenuHistorial();
             default:
-                return new ModeFragment();
+                return new FragmentMenuModos();
         }
 
     }

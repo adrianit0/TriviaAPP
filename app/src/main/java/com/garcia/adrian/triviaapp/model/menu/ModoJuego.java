@@ -2,7 +2,6 @@ package com.garcia.adrian.triviaapp.model.menu;
 
 import com.garcia.adrian.triviaapp.enums.CATEGORIA;
 import com.garcia.adrian.triviaapp.enums.DIFICULTAD;
-import com.garcia.adrian.triviaapp.model.menu.EstiloJuegoBase;
 
 import java.io.Serializable;
 
