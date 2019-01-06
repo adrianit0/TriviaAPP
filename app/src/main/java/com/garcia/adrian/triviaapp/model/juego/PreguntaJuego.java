@@ -18,6 +18,7 @@ public class PreguntaJuego {
     private String enunciado;
 
     private String[] opciones;  // La primera respuesta será siempre la correcta.
+    private String[] randomOptions;
     private int correctAnswer;  // Devuelve la respuesta correcta
 
     private int yourAnswer;     // Tu respuesta
@@ -74,15 +75,17 @@ public class PreguntaJuego {
             _opciones[i] = this.opciones[_valores[i]];
         }
 
+        randomOptions = _opciones;
+
         return _opciones;
     }
 
     public String getCorrectAnswerString () {
-        return opciones[correctAnswer];
+        return randomOptions[correctAnswer];
     }
 
     public String getYourAnswerString () {
-        return opciones[yourAnswer];
+        return randomOptions[yourAnswer];
     }
 
     public int getCorrectAnswer() {

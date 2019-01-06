@@ -47,7 +47,7 @@ public final class QueryUtils {
                 String question = convertFromHTML(preguntaJSON.getString("question"));
 
                 String[] answers = new String [(type.equals("multiple")?4:2)];
-                answers[0] =  preguntaJSON.getString("correct_answer"); // Respuesta correcta
+                answers[0] =  convertFromHTML(preguntaJSON.getString("correct_answer")); // Respuesta correcta
 
                 JSONArray incorrect = preguntaJSON.getJSONArray("incorrect_answers");
 

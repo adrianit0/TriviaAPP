@@ -5,7 +5,6 @@
     android:layout_height="wrap_content"
     android:orientation="vertical"
     android:layout_margin="4dp"
-    android:padding="12dp"
     android:background="@layout/borde_categoria"
     android:id="@+id/linear"
     >
@@ -16,16 +15,18 @@
         android:layout_height="wrap_content"
         android:text="Modo de juego"
         android:textAlignment="center"
+        android:padding="4dp"
         android:textStyle="bold"
         android:textSize="24sp"
         android:textColor="@color/colorStrongFont"
-        android:layout_marginBottom="8dp"
+        android:background="@color/colorFondoItemRow"
         />
 
     <TextView
         android:id="@+id/textViewDescripcion"
         android:layout_width="match_parent"
-        android:layout_height="48dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
         android:text="Descripciión del modo de juego"
         android:gravity="center"
         android:textSize="16sp"

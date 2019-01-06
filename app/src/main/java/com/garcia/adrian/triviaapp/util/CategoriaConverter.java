@@ -9,7 +9,9 @@ import java.sql.Date;
 public class CategoriaConverter {
     @TypeConverter
     public static CATEGORIA toCategoria(Integer id){
-        return id == null ? null: CATEGORIA.values()[id];
+        if (id==-1)
+            return CATEGORIA.values()[0];
+        return id == null ? null: CATEGORIA.fromID(id);
     }
 
     @TypeConverter

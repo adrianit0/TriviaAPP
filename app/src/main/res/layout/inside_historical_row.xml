@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:layout_margin="8dp"
+    android:background="@layout/borde_categoria"
+    android:id="@+id/linear"
+    >
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.5"
+        android:orientation="horizontal"
+        android:background="@color/colorFondoItemRow"
+        >
+        <TextView
+            android:id="@+id/textViewPregunta"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            android:textStyle="bold"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:text="Pregunta de pruebas"
+            android:textSize="18sp"
+            android:padding="4dp"
+            android:textColor="@color/colorWeakFont"
+            />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_margin="4dp">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_margin="4dp"
+            android:gravity="center_vertical">
+            <TextView
+                android:id="@+id/textViewPuntuacion"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:text="+300"
+                android:textSize="16sp"
+                android:textColor="@color/colorStrongFont"
+                android:background="@layout/circulo_categoria"
+                android:gravity="center"
+                />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.5"
+                android:orientation="horizontal"
+                android:layout_margin="4dp">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/historialYourAnswer"
+                    android:textStyle="bold"
+                    android:textSize="16sp"
+                    android:layout_marginRight="8dp"
+                    android:textColor="@color/colorStrongFont"
+                    />
+                <TextView
+                    android:id="@+id/textViewTuRespuesta"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Tu respuesta"
+                    android:textSize="16sp"
+                    android:textColor="@color/colorWeakFont"
+                    />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.5"
+                android:orientation="horizontal"
+                android:layout_margin="4dp">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/historialCorrectAnswer"
+                    android:textStyle="bold"
+                    android:textSize="16sp"
+                    android:layout_marginRight="8dp"
+                    android:textColor="@color/colorStrongFont"
+                    />
+                <TextView
+                    android:id="@+id/textViewRespuestaCorrecta"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Respuesta correcta"
+                    android:textSize="16sp"
+                    android:textColor="@color/colorWeakFont"
+                    />
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+
+</LinearLayout>

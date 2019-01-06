@@ -43,7 +43,7 @@ public class HistorialAdapter extends RecyclerView.Adapter<HistorialAdapter.View
         viewHolder.textTitulo.setText(activity.getString(R.string.tituloHistorial) + " #"+ historial.getTitulo());
 
         viewHolder.textPuntuacion.setText(historial.getPuntuacion()+"");
-        viewHolder.textCategoria.setText(historial.getCategoria().getName(activity.getApplicationContext()));
+        viewHolder.textCategoria.setText(historial.getCategoria().getShortName(activity.getApplicationContext()));
         viewHolder.textAcertadas.setText(historial.getAcertadas()+"");
         viewHolder.textFecha.setText(historial.getFecha().toString());
 
@@ -82,7 +82,7 @@ public class HistorialAdapter extends RecyclerView.Adapter<HistorialAdapter.View
     }
 
     public interface OnItemClickListener{
-        void onItemClick(View vista, Partida modo);
+        void onItemClick(View vista, Partida partida);
     }
 
 }

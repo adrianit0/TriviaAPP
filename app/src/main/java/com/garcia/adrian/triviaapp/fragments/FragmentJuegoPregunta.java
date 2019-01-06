@@ -68,7 +68,6 @@ public class FragmentJuegoPregunta extends Fragment {
     }
 
     public void animacion (boolean acertado){
-        // TODO:  Cambiar los parámetros de entrada
         new EsperarAsyncTask().execute(antiguosPuntos, antiguosPuntos+pregunta.getDificultad().getPuntuacion());
     }
 
@@ -80,7 +79,7 @@ public class FragmentJuegoPregunta extends Fragment {
         textoNumeroPreguntas.setText((noPregunta+1)+"/"+totalPreguntas);
         textoEnunciado.setText(pregunta.getEnunciado());
         textoPuntos.setText(pregunta.getDificultad().getPuntuacion()+"");
-        textoCategoria.setText(pregunta.getCategoria().getName(getContext()));
+        textoCategoria.setText(pregunta.getCategoria().getShortName(getContext()));
         textoDificultad.setText(pregunta.getDificultad().getName(getContext()));
     }
 

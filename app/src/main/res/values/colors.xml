@@ -1,22 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#5676f9</color>
+    <color name="colorPrimary">#0a3763</color>
     <color name="colorPrimaryDark">#0032ff</color>
     <color name="colorAccent">#ffbe00</color>
 
     <!-- Colores para los elementos del menu -->
-    <color name="colorItemRow">#c78eedda</color>
+    <color name="colorFondoItemRow">#0a3763</color>
+    <color name="colorItemRow">#313335</color>
 
     <!-- Colores para las distintas fuentes usadas -->
-    <color name="colorStrongFont">#000</color>
-    <color name="colorWeakFont">#777</color>
+    <color name="colorStrongFont">#ffffff</color>
+    <color name="colorWeakFont">#dcdcdc</color>
     <color name="colorBlockedFont">#F00</color>
     <color name="colorWeakBlockedFont">#F66</color>
 
     <color name="colorPregunta">#FFF</color>
     <color name="colorPreguntaWeak">#777</color>
-    <color name="colorRespuestaCorrecta">#0F0</color>
-    <color name="colorRespuestaIncorrecta">#F00</color>
+    <color name="colorRespuestaCorrecta">#0de85d</color>
+    <color name="colorRespuestaIncorrecta">#e01137</color>
 
 
 </resources>

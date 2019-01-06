@@ -2,6 +2,7 @@
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="app_name">TriviaAPP</string>ç
     <string name="game_activity_name">Trivia</string>
+    <string name="historial_activity_name">Historical</string>
 
     <!-- TRADUCCION: INGLES -->
     <!-- CATEGORY ROWS -->
@@ -41,6 +42,33 @@
     <string name="categoria24">Entertainment: Japanese Anime and Manga</string>
     <string name="categoria25">Entertainment: Cartoon and Animations</string>
 
+    <!-- Versión corta del nombre de las categorias (Max: 10 caracteres) -->
+    <string name="categoria1short">Any category</string>
+    <string name="categoria2short">General</string>
+    <string name="categoria3short">Books</string>
+    <string name="categoria4short">Films</string>
+    <string name="categoria5short">Musics</string>
+    <string name="categoria6short">Musicals</string>
+    <string name="categoria7short">Television</string>
+    <string name="categoria8short">Videogames</string>
+    <string name="categoria9short">Boardgames</string>
+    <string name="categoria10short">Nature</string>
+    <string name="categoria11short">Computers</string>
+    <string name="categoria12short">Maths</string>
+    <string name="categoria13short">Mythology</string>
+    <string name="categoria14short">Sports</string>
+    <string name="categoria15short">Geography</string>
+    <string name="categoria16short">History</string>
+    <string name="categoria17short">Politics</string>
+    <string name="categoria18short">Art</string>
+    <string name="categoria19short">Celebrities</string>
+    <string name="categoria20short">Animals</string>
+    <string name="categoria21short">Vehicles</string>
+    <string name="categoria22short">Comics</string>
+    <string name="categoria23short">Gadgets</string>
+    <string name="categoria24short">Anime</string>
+    <string name="categoria25short">Cartoons</string>
+
     <!-- Nombre de las dificultades -->
     <string name="dificultadFacil">Easy</string>
     <string name="dificultadMedium">Medium</string>
@@ -70,11 +98,17 @@
 
     <string name="tituloHistorial">Game</string>
 
+    <!-- HISTORIAL -->
+    <string name="historialPregunta">Question: </string>
+    <string name="historialYourAnswer">Your answer: </string>
+    <string name="historialCorrectAnswer">Correct answer: </string>
+    <string name="historialPuntuation">Puntuation: </string>
+
     <!-- DENTRO DEL JUEGO -->
     <string name="juegoPuntosTotales">Your points: </string>
     <string name="juegoCategoria">Category: </string>
     <string name="juegoDificultad">Difficulty: </string>
-    <string name="juegoPuntosPregunta"> puntos</string>
+    <string name="juegoPuntosPregunta">" points"</string>
 
     <!-- FIN DE PARTIDA -->
     <string name="juegoFinalAcertadas">Correct answers: </string>

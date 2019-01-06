@@ -30,6 +30,9 @@ public interface PreguntaDAO {
     @Query("SELECT * FROM Pregunta WHERE id=:id")
     public Pregunta getPregunta (long id);
 
+    @Query("SELECT * FROM Pregunta")
+    public LiveData<List<Pregunta>> getPreguntas();
+
     @Query("SELECT * FROM Pregunta WHERE partida_id=:idPregunta")
-    public LiveData<List<Pregunta>> getPreguntas(int idPregunta);
+    public List<Pregunta> getPreguntasList(int idPregunta);
 }

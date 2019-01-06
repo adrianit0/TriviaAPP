@@ -7,9 +7,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.Toast;
@@ -157,8 +160,6 @@ public class GameActivity extends AppCompatActivity implements FragmentJuegoPreg
 
         if (preguntaActual>=listaPreguntas.size()) {
             if (nextQuestion) {
-                // TODO: Traducir TOAST
-                Toast.makeText(GameActivity.this, "NO HAY MÁS PREGUNTAS", Toast.LENGTH_SHORT).show();
                 guardarPreguntas();
             }
 
@@ -169,40 +170,40 @@ public class GameActivity extends AppCompatActivity implements FragmentJuegoPreg
 
         if (fragmentPregunta!=null){
             fragmentPregunta.setPregunta(listaPreguntas.get(preguntaActual),model.getPuntuacion(),preguntaActual, listaPreguntas.size());
-        } else {
-            Toast.makeText(GameActivity.this, "FRAGMENT PREGUNTA NO ENCONTRADO", Toast.LENGTH_SHORT).show();
         }
 
         if (fragmentRespuestas!=null){
             fragmentRespuestas.setRespuestas(listaPreguntas.get(preguntaActual));
-        } else {
-            // TODO: Traducir TOAST
-            Toast.makeText(GameActivity.this, "FRAGMENT  RESPUESTAS NO ENCONTRADO", Toast.LENGTH_SHORT).show();
         }
     }
 
     private void guardarPreguntas () {
-        //TODO: Seguir
-        HistorialPartidaViewModel viewModel = ViewModelProviders.of(this).get(HistorialPartidaViewModel.class);
+        final FragmentActivity fragment = this;
+        HistorialPartidaViewModel viewModel = ViewModelProviders.of(fragment).get(HistorialPartidaViewModel.class);
 
         final int totalPreguntas = listaPreguntas.size();
         Partida partida = new Partida (0, model.getPuntuacion(), getPreguntasCorrectas(), modoSeleccionado.getCategoria(), new Date(System.currentTimeMillis()));
 
         viewModel.addPartida(partida, new HistorialPartidaViewModel.OnAddRowListener() {
             @Override
+            // Creamos la partida, una vez la partida esté creada metemos las preguntas respondidas mediante un callback
             public void onRowAdded(long id) {
                 // Ahora guardamos las preguntas
                 Pregunta[] preguntas = new Pregunta[totalPreguntas];
 
                 for (int i = 0; i < totalPreguntas; i++) {
                     PreguntaJuego _pregunta = listaPreguntas.get(i);
-                    preguntas[i] = new Pregunta(0, _pregunta.getEnunciado(), _pregunta.getCorrectAnswerString(), _pregunta.getYourAnswerString(), _pregunta.getDificultad().getPuntuacion(), id);
+                    preguntas[i] = new Pregunta(0, _pregunta.getEnunciado(), _pregunta.getYourAnswerString(), _pregunta.getCorrectAnswerString(), _pregunta.getDificultad().getPuntuacion(), id);
                 }
 
-                ViewModelProviders.of(GameActivity.this).get(HistorialPreguntasViewModel.class).addPregunta(preguntas);
-                // TODO: Traducir TOAST
-                Toast.makeText(GameActivity.this, "Pregunta añadida a la base de datos", Toast.LENGTH_SHORT).show();
+                HistorialPreguntasViewModel viewPreguntas = ViewModelProviders.of(fragment).get(HistorialPreguntasViewModel.class);
 
+                if (viewPreguntas!=null) {
+                    viewPreguntas.addPregunta(preguntas);
+                    //Toast.makeText(GameActivity.this, "Pregunta añadida a la base de datos", Toast.LENGTH_SHORT).show();
+                } else {
+                    //Toast.makeText(GameActivity.this, "Error al añadir pregunta", Toast.LENGTH_SHORT).show();
+                }
             }
         });
     }

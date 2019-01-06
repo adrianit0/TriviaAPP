@@ -1,6 +1,7 @@
 package com.garcia.adrian.triviaapp.fragments;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -10,6 +11,8 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 
 import com.garcia.adrian.triviaapp.R;
+import com.garcia.adrian.triviaapp.activities.GameActivity;
+import com.garcia.adrian.triviaapp.activities.MainActivity;
 import com.garcia.adrian.triviaapp.model.juego.PreguntaJuego;
 
 public class FragmentJuegoRespuestas extends Fragment {
@@ -77,7 +80,9 @@ public class FragmentJuegoRespuestas extends Fragment {
         botonAtras.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //TODO: Hacer que vuelva hacia atras
+                getActivity().finishActivity(0);
+                Intent intent = new Intent(getActivity(), MainActivity.class);
+                startActivity(intent);
             }
         });
 
@@ -130,5 +135,4 @@ public class FragmentJuegoRespuestas extends Fragment {
         void onAnswerLoaded();
         void onStartAnimation(boolean acertada);
     }
-
 }

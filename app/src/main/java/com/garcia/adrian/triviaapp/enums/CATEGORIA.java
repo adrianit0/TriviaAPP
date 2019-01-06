@@ -100,6 +100,63 @@ public enum CATEGORIA {
         return "";
     }
 
+    public String getShortName (Context res) {
+        switch (id) {
+            case -1:
+                return res.getString(R.string.categoria1short);
+            case 9:
+                return res.getString(R.string.categoria2short);
+            case 10:
+                return res.getString(R.string.categoria3short);
+            case 11:
+                return res.getString(R.string.categoria4short);
+            case 12:
+                return res.getString(R.string.categoria5short);
+            case 13:
+                return res.getString(R.string.categoria6short);
+            case 14:
+                return res.getString(R.string.categoria7short);
+            case 15:
+                return res.getString(R.string.categoria8short);
+            case 16:
+                return res.getString(R.string.categoria9short);
+            case 17:
+                return res.getString(R.string.categoria10short);
+            case 18:
+                return res.getString(R.string.categoria11short);
+            case 19:
+                return res.getString(R.string.categoria12short);
+            case 20:
+                return res.getString(R.string.categoria13short);
+            case 21:
+                return res.getString(R.string.categoria14short);
+            case 22:
+                return res.getString(R.string.categoria15short);
+            case 23:
+                return res.getString(R.string.categoria16short);
+            case 24:
+                return res.getString(R.string.categoria17short);
+            case 25:
+                return res.getString(R.string.categoria18short);
+            case 26:
+                return res.getString(R.string.categoria19short);
+            case 27:
+                return res.getString(R.string.categoria20short);
+            case 28:
+                return res.getString(R.string.categoria21short);
+            case 29:
+                return res.getString(R.string.categoria22short);
+            case 30:
+                return res.getString(R.string.categoria23short);
+            case 31:
+                return res.getString(R.string.categoria24short);
+            case 32:
+                return res.getString(R.string.categoria25short);
+        }
+
+        return "";
+    }
+
     public static CATEGORIA fromID(int id) {
         if (id<9)
             return CATEGORIA.AnyCategory;
@@ -109,7 +166,6 @@ public enum CATEGORIA {
 
     public static CATEGORIA fromString(String cad){
         switch (cad){
-            //TODO: Mejorar esta parte
             case "General Knowledge":
                 return CATEGORIA.values()[1];
             case "Entertainment: Books":

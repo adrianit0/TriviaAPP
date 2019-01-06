@@ -20,9 +20,6 @@ public class ModoJuegoAdapter extends RecyclerView.Adapter<ModoJuegoAdapter.View
     private Activity activity;
     private OnItemClickListener listener;
 
-    //TODO: Mirar si sirve para algo el ViewGroup
-    private ViewGroup viewGroup;
-
     public ModoJuegoAdapter(List<ModoJuego> modoJuegos, int layout, Activity activity, OnItemClickListener listener) {
         this.modoJuegos = modoJuegos;
         this.layout = layout;
@@ -35,8 +32,6 @@ public class ModoJuegoAdapter extends RecyclerView.Adapter<ModoJuegoAdapter.View
     public ModoJuegoAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         View view= LayoutInflater.from(activity).inflate(layout,viewGroup, false);
         ModoJuegoAdapter.ViewHolder viewHolder= new ModoJuegoAdapter.ViewHolder(view);
-
-        this.viewGroup = viewGroup;
 
         return viewHolder;
     }

@@ -28,8 +28,6 @@ public class FragmentMenuModos extends Fragment {
 
     private RecyclerView recyclerView;
     private RecyclerView.LayoutManager layoutManager;
-    private OnGameModeClickListener callback;
-
 
     public FragmentMenuModos() {
         // Required empty public constructor
@@ -40,7 +38,6 @@ public class FragmentMenuModos extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         View rootView = inflater.inflate(R.layout.fragment_lista, container, false);
-        ((AppCompatActivity)getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         recyclerView= rootView.findViewById(R.id.recyclerView);
         layoutManager = new LinearLayoutManager(this.getContext());
@@ -55,9 +52,9 @@ public class FragmentMenuModos extends Fragment {
                         new ModoJuego(getString(R.string.modoJuegoTitulo3), getString(R.string.modoJuegoDescripcion3),true, 10, CATEGORIA.AnyCategory, DIFICULTAD.Medium),
                         new ModoJuego(getString(R.string.modoJuegoTitulo4), getString(R.string.modoJuegoDescripcion4),true, 20, CATEGORIA.AnyCategory, DIFICULTAD.Medium),
                         new ModoJuego(getString(R.string.modoJuegoTitulo5), getString(R.string.modoJuegoDescripcion5),true, 10, CATEGORIA.AnyCategory, DIFICULTAD.Hard),
-                        new ModoJuego(getString(R.string.modoJuegoTitulo6), getString(R.string.modoJuegoDescripcion6),true, 20, CATEGORIA.AnyCategory, DIFICULTAD.Hard),
-                        new ModoJuego(getString(R.string.modoJuegoTitulo7), getString(R.string.modoJuegoDescripcion7),true, 10, CATEGORIA.AnyCategory, DIFICULTAD.Hard),
-                        new ModoJuego(getString(R.string.modoJuegoTitulo8), getString(R.string.modoJuegoDescripcion8),true, 20, CATEGORIA.AnyCategory, DIFICULTAD.Hard)
+                        new ModoJuego(getString(R.string.modoJuegoTitulo6), getString(R.string.modoJuegoDescripcion6),true, 20, CATEGORIA.AnyCategory, DIFICULTAD.Hard)
+                        //new ModoJuego(getString(R.string.modoJuegoTitulo7), getString(R.string.modoJuegoDescripcion7),true, 10, CATEGORIA.AnyCategory, DIFICULTAD.Hard),
+                        //new ModoJuego(getString(R.string.modoJuegoTitulo8), getString(R.string.modoJuegoDescripcion8),true, 20, CATEGORIA.AnyCategory, DIFICULTAD.Hard)
                 )
         );
 
@@ -73,20 +70,5 @@ public class FragmentMenuModos extends Fragment {
         recyclerView.setAdapter(mAdapter);
 
         return rootView;
-    }
-
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-
-        try {
-            callback = (OnGameModeClickListener) context;
-        }catch (ClassCastException e){
-            System.out.println("Error: deberia implementar la interfaz");
-        }
-    }
-
-    public interface OnGameModeClickListener {
-        void onModeClickListener (ModoJuego modo);
     }
 }

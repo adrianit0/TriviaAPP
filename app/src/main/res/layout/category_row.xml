@@ -5,7 +5,6 @@
     android:layout_height="wrap_content"
     android:orientation="vertical"
     android:layout_margin="4dp"
-    android:padding="12dp"
     android:background="@layout/borde_categoria"
     android:id="@+id/linear"
     >
@@ -18,54 +17,62 @@
         android:textAlignment="center"
         android:textStyle="bold"
         android:textSize="24sp"
+        android:padding="4dp"
         android:textColor="@color/colorStrongFont"
-        android:layout_marginBottom="8dp"
+        android:background="@color/colorFondoItemRow"
         />
 
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginLeft="8dp">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/row_maxPuntuation"
-            android:textStyle="bold"
-            android:textSize="16sp"
-            android:textColor="@color/colorStrongFont"
-            />
-        <TextView
-            android:id="@+id/textViewMaxPuntuacion"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="0"
-            android:textSize="16sp"
-            android:textColor="@color/colorWeakFont"
-            />
-    </LinearLayout>
+        android:orientation="vertical"
+        android:layout_margin="16dp">
 
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginLeft="8dp">
-        <TextView
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/row_totalHit"
-            android:textStyle="bold"
-            android:textSize="16sp"
-            android:textColor="@color/colorStrongFont"
-            />
-        <TextView
-            android:id="@+id/textViewMaxAcertadas"
-            android:layout_width="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginLeft="8dp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/row_maxPuntuation"
+                android:textStyle="bold"
+                android:textSize="16sp"
+                android:textColor="@color/colorStrongFont"
+                />
+            <TextView
+                android:id="@+id/textViewMaxPuntuacion"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="0"
+                android:textSize="16sp"
+                android:textColor="@color/colorWeakFont"
+                />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="0"
-            android:textSize="16sp"
-            android:textColor="@color/colorWeakFont"
-            />
+            android:orientation="horizontal"
+            android:layout_marginLeft="8dp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/row_totalHit"
+                android:textStyle="bold"
+                android:textSize="16sp"
+                android:textColor="@color/colorStrongFont"
+                />
+            <TextView
+                android:id="@+id/textViewMaxAcertadas"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="0"
+                android:textSize="16sp"
+                android:textColor="@color/colorWeakFont"
+                />
+        </LinearLayout>
     </LinearLayout>
 
 
