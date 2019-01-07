@@ -34,6 +34,8 @@ import java.util.List;
 
 public class GameActivity extends AppCompatActivity implements FragmentJuegoPregunta.OnQuestionSend, FragmentJuegoRespuestas.OnAnswerSend {
 
+    // TODO: Hacer versión tablet
+
     private ArrayList<PreguntaJuego> listaPreguntas;
     private int preguntaActual = 0;
 

@@ -38,10 +38,10 @@ public class FragmentJuegoRespuestas extends Fragment {
 
         layoutRespuesta = view.findViewById(R.id.fragmentLinearRespuestas);
         botones = new Button[4];
-        botones[0] = (Button) view.findViewById(R.id.respuesta1);
-        botones[1] = (Button) view.findViewById(R.id.respuesta2);
-        botones[2] = (Button) view.findViewById(R.id.respuesta3);
-        botones[3] = (Button) view.findViewById(R.id.respuesta4);
+        botones[0] = view.findViewById(R.id.respuesta1);
+        botones[1] = view.findViewById(R.id.respuesta2);
+        botones[2] = view.findViewById(R.id.respuesta3);
+        botones[3] = view.findViewById(R.id.respuesta4);
 
         layoutRespuestaGameOver = view.findViewById(R.id.fragmentLinearRespuestasGameOVer);
         botonAtras = (Button) view.findViewById(R.id.botonVolver);
