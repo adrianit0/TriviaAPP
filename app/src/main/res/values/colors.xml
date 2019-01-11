@@ -7,6 +7,7 @@
     <!-- Colores para los elementos del menu -->
     <color name="colorFondoItemRow">#0a3763</color>
     <color name="colorItemRow">#313335</color>
+    <color name="rippleEffect">#74838e</color>
 
     <!-- Colores para las distintas fuentes usadas -->
     <color name="colorStrongFont">#ffffff</color>

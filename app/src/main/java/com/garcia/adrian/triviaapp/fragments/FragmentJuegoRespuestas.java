@@ -93,6 +93,9 @@ public class FragmentJuegoRespuestas extends Fragment {
     }
 
     public void setRespuestas (PreguntaJuego pregunta) {
+        if (getContext()==null)
+            return;
+
         respondido = false;
         this.pregunta=pregunta;
 

@@ -72,6 +72,9 @@ public class FragmentJuegoPregunta extends Fragment {
     }
 
     public void setPregunta (PreguntaJuego pregunta, int puntosActuales, int noPregunta, int totalPreguntas) {
+        if (getContext()==null)
+            return;
+
         this.pregunta = pregunta;
         this.antiguosPuntos=puntosActuales;
 

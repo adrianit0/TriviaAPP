@@ -46,37 +46,48 @@ public class FragmentMenuCategoria extends Fragment {
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setHasFixedSize(true);
 
+        categorias = new ArrayList<>();
+
+        // Creamos todas las categorias
+        CATEGORIA[] listaCategoria = CATEGORIA.values();
+        for (CATEGORIA c : listaCategoria) {
+            categorias.add (new ModoJuego(c.getName(getContext()), c, "-", "-"));
+        }
+
+        mAdapter = new ModoJuegoAdapter(categorias, R.layout.category_row, getActivity(), new ModoJuegoAdapter.OnItemClickListener(){
+            @Override
+            public void onItemClick(View vista, ModoJuego modo) {
+                Intent intent = new Intent(getActivity(), GameActivity.class);
+                intent.putExtra("modoJuego", modo);
+                startActivity(intent);
+            }
+        });
+
+        recyclerView.setAdapter(mAdapter);
+
+        // Cuando se cargue las preguntas del ROOM, colocar las máximas puntuaciones y cantidad de preguntas acertadas
+        // de cada categoría.
         callback.onFragmentLoaded(new FragmentMenuHistorial.OnHistoricalDataLoadedListener() {
             @Override
             public void OnHistoricalDataLoaded(List<Partida> partidas) {
-                categorias = new ArrayList<>();
-                CATEGORIA[] listaCategoria = CATEGORIA.values();
-
                 // Añadimos todas las categorias
-                for (CATEGORIA c : listaCategoria) {
+                for (ModoJuego m : categorias) {
                     int maximaPuntuacion=0;
                     int totalAcertadas=0;
                     for (Partida p : partidas) {
+                        CATEGORIA c = m.getCategoria();
                         if (p.getCategoria()==c) {
                             totalAcertadas+=p.getAcertadas();
                             if (p.getPuntuacion()>maximaPuntuacion)
                                 maximaPuntuacion=p.getPuntuacion();
                         }
                     }
-                    categorias.add (new ModoJuego(c.getName(getContext()), c, maximaPuntuacion+"", totalAcertadas+""));
+
+                    m.setMaximaPuntuacion(maximaPuntuacion+"");
+                    m.setTotalAcertadas(totalAcertadas+"");
                 }
 
-
-                mAdapter = new ModoJuegoAdapter(categorias, R.layout.category_row, getActivity(), new ModoJuegoAdapter.OnItemClickListener(){
-                    @Override
-                    public void onItemClick(View vista, ModoJuego modo) {
-                        Intent intent = new Intent(getActivity(), GameActivity.class);
-                        intent.putExtra("modoJuego", modo);
-                        startActivity(intent);
-                    }
-                });
-
-                recyclerView.setAdapter(mAdapter);
+                mAdapter.notifyDataSetChanged();
             }
         });
 

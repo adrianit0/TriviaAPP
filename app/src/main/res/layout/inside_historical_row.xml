@@ -5,7 +5,7 @@
     android:layout_height="wrap_content"
     android:orientation="vertical"
     android:layout_margin="8dp"
-    android:background="@layout/borde_categoria"
+    android:background="@drawable/ripple"
     android:id="@+id/linear"
     >
 
