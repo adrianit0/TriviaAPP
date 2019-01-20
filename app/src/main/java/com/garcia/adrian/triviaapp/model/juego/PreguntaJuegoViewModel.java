@@ -30,11 +30,22 @@ public class PreguntaJuegoViewModel extends AndroidViewModel {
     private int puntuacion=0;
     private int preguntaActual=0;
     private Application aplicacion;
+
+    // traducción
+    private Traduccion traduccion=null;
+    private boolean isTranslate=false;      // Se ha traducido
+    private boolean isTranslating=false;    // Se está traduciendo
+
+    private boolean[] comodines;            // Comodines
+
+
     private static final String REQUEST_URL = "https://opentdb.com/api.php";
+    private static final String TRANSLATE_REQUEST_URL = "https://translate.yandex.net/api/v1.5/tr.json/translate?key=<PONERKEYAQUI>";
 
     public PreguntaJuegoViewModel (@NonNull Application aplicacion) {
         super (aplicacion);
         this.aplicacion = aplicacion;
+        comodines = new boolean[]{false, false, false};
     }
 
     // Método por defecto para descargar los datos de las preguntas
@@ -78,7 +89,7 @@ public class PreguntaJuegoViewModel extends AndroidViewModel {
     }
 
     private void cargarPreguntas (int cantidadPreguntas, CATEGORIA categoria, DIFICULTAD dificultad) {
-        Log.e("CARGANDO_PREGUNTAS", "Las preguntas estan siendo cargada. CATEGORIA: "+ categoria+ " ID: "+categoria.getID());
+        //Log.e("CARGANDO_PREGUNTAS", "Las preguntas estan siendo cargada. CATEGORIA: "+ categoria+ " ID: "+categoria.getID());
 
         String tipo = "multiple";       // Tipo: multiple, boolean, any
 
@@ -107,5 +118,83 @@ public class PreguntaJuegoViewModel extends AndroidViewModel {
             }
         });
         requestQueue.add(request);
+    }
+
+
+    // TRADUCCION
+    public void cargarTraduccion (PreguntaJuego preguntaJuego, final OnTranslateListener callback) {
+        if (preguntaJuego==null) {
+            return;
+        }
+
+        if (isTranslating) {
+            Toast.makeText(aplicacion.getBaseContext(), "Se está cargando la traduccion", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        if (traduccion!=null || isTranslate) {
+            // Si ya está traducido no hará falta cargarlo
+            cargarTraduccion(callback);
+            return;
+        }
+
+        Uri baseUri = Uri.parse(TRANSLATE_REQUEST_URL);
+        Uri.Builder uriBuilder = baseUri.buildUpon();
+
+        uriBuilder.appendQueryParameter("text", preguntaJuego.getEnunciado());
+        String[] opciones = preguntaJuego.getOpcionesRandomly(false);
+        for (String o : opciones) {
+            uriBuilder.appendQueryParameter("text", o);
+        }
+        uriBuilder.appendQueryParameter("lang", "en-es");
+
+
+        final RequestQueue requestQueue = Volley.newRequestQueue(aplicacion.getApplicationContext());
+        StringRequest request = new StringRequest(Request.Method.GET, uriBuilder.toString(),
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        traduccion = QueryUtils.translateQuestion(response);
+                        isTranslating = false;
+
+                        cargarTraduccion(callback);
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                // Mostramos el mensaje de error
+                (Toast.makeText(aplicacion.getApplicationContext(), "Error: No tienes conexión a internet o se ha producido un error aleatorio" /*+error.getMessage()*/, Toast.LENGTH_SHORT)).show();
+                isTranslating = false;
+            }
+        });
+        requestQueue.add(request);
+
+        isTranslating= true;
+    }
+
+    private void cargarTraduccion (OnTranslateListener callback) {
+        if(traduccion==null || isTranslating)
+            return;
+
+        isTranslate = !isTranslate;
+
+        callback.onTranslate(traduccion, isTranslate);
+    }
+
+    public boolean getComodin (int pos) {
+        return comodines[pos];
+    }
+
+    public void usarComodin (int pos){
+        comodines[pos]=true;
+    }
+
+    public void resetTranslate() {
+        traduccion=null;
+        isTranslate=false;
+    }
+
+    public interface OnTranslateListener {
+        void onTranslate(Traduccion traduccion, boolean traducido);
     }
 }

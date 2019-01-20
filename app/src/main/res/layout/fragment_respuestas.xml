@@ -18,10 +18,56 @@
         android:visibility="visible"
         >
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginBottom="16dp"
+            >
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_gravity="center"
+                >
+            <Button
+                android:id="@+id/comodin_llamar"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:background="@drawable/comodin_llamada_on"
+                android:textSize="16sp" />
+            <Button
+                android:id="@+id/comodin_mitad"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginRight="8dp"
+                android:layout_marginLeft="8dp"
+                android:background="@drawable/comodin_mitad_on"
+                android:textSize="16sp" />
+            <Button
+                android:id="@+id/comodin_publico"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:background="@drawable/comodin_publico_on"
+                android:textSize="16sp" />
+            </LinearLayout>
+            <TextView
+                android:id="@+id/comodin_respuesta"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textAlignment="center"
+                android:text=""
+                android:textColor="@color/colorPregunta"
+                android:textSize="16sp"
+                android:visibility="gone"/>
+        </LinearLayout>
+
+
         <Button
             android:id="@+id/respuesta1"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="40dp"
             android:background="@drawable/hueco_respuesta"
             android:padding="0dp"
             android:layout_marginLeft="16dp"
@@ -33,7 +79,7 @@
         <Button
             android:id="@+id/respuesta2"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="40dp"
             android:background="@drawable/hueco_respuesta"
             android:padding="0dp"
             android:layout_marginLeft="16dp"
@@ -45,7 +91,7 @@
         <Button
             android:id="@+id/respuesta3"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="40dp"
             android:background="@drawable/hueco_respuesta"
             android:padding="0dp"
             android:layout_marginLeft="16dp"
@@ -57,7 +103,7 @@
         <Button
             android:id="@+id/respuesta4"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="40dp"
             android:background="@drawable/hueco_respuesta"
             android:padding="0dp"
             android:layout_marginLeft="16dp"

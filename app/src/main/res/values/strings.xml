@@ -110,6 +110,11 @@
     <string name="juegoDificultad">Difficulty: </string>
     <string name="juegoPuntosPregunta">" points"</string>
 
+    <!-- COMODINES -->
+    <string name="usarComodin">You cant use this comodin</string>
+    <string name="llamadaSeguro">Im sure the answer is </string>
+    <string name="llamadaCreo">I think the answer is </string>
+
     <!-- FIN DE PARTIDA -->
     <string name="juegoFinalAcertadas">Correct answers: </string>
     <string name="juegoFinalPuntos">Total points: </string>

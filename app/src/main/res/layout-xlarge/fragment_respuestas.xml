@@ -21,6 +21,51 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginBottom="16dp"
+            >
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_gravity="center"
+                >
+                <Button
+                    android:id="@+id/comodin_llamar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/comodin_llamada_on"
+                    android:textSize="16sp" />
+                <Button
+                    android:id="@+id/comodin_mitad"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="8dp"
+                    android:layout_marginLeft="8dp"
+                    android:background="@drawable/comodin_mitad_on"
+                    android:textSize="16sp" />
+                <Button
+                    android:id="@+id/comodin_publico"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/comodin_publico_on"
+                    android:textSize="16sp" />
+            </LinearLayout>
+            <TextView
+                android:id="@+id/comodin_respuesta"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textAlignment="center"
+                android:text=""
+                android:textColor="@color/colorPregunta"
+                android:textSize="16sp"
+                android:visibility="gone"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="horizontal">
             <Button
                 android:id="@+id/respuesta1"

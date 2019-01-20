@@ -26,6 +26,7 @@ import com.garcia.adrian.triviaapp.model.historial.Partida;
 import com.garcia.adrian.triviaapp.model.historial.Pregunta;
 import com.garcia.adrian.triviaapp.model.juego.PreguntaJuego;
 import com.garcia.adrian.triviaapp.model.juego.PreguntaJuegoViewModel;
+import com.garcia.adrian.triviaapp.model.juego.Traduccion;
 import com.garcia.adrian.triviaapp.model.menu.ModoJuego;
 
 import java.sql.Date;
@@ -34,15 +35,13 @@ import java.util.List;
 
 public class GameActivity extends AppCompatActivity implements FragmentJuegoPregunta.OnQuestionSend, FragmentJuegoRespuestas.OnAnswerSend {
 
-    // TODO: Hacer versión tablet
-    // TODO: Arreglar versión tablet (Actualmente tiene problemas al jugar).
-
     private ArrayList<PreguntaJuego> listaPreguntas;
     private int preguntaActual = 0;
 
 
     private FragmentJuegoPregunta fragmentPregunta;
     private boolean cargado = false;
+    private boolean animacion=false;    // Se pone a true durante el segundo entre preguntas, se utiliza para no dejar usar los comodines de mientras
     private FragmentJuegoRespuestas fragmentRespuestas;
     private PreguntaJuegoViewModel model;
 
@@ -89,15 +88,35 @@ public class GameActivity extends AppCompatActivity implements FragmentJuegoPreg
     // Del fragment respuestas, espera 1 segundo a la siguiente pregunta
     // Tras ese segundo se ejecuta el callback "nextAnswer", que pondrá la siguiente pregunta.
     public void onStartAnimation (boolean acertado){
+        animacion=true;
         if (acertado&&model!=null)
             model.ganarPuntos(listaPreguntas.get(preguntaActual).getDificultad().getPuntuacion());
         fragmentPregunta.animacion(acertado);
+
     }
 
     @Override
     // Pone la siguiente pregunta
     public void nextAnswer() {
         siguientePregunta(false);
+        animacion=false;
+    }
+
+    @Override
+    public boolean hasUsedComodin(int comodin) {
+        // No dejar usar el comodin si está cargando, o está en modo animación
+        if (model==null || !cargado || animacion)
+            return true;
+
+        return model.getComodin(comodin);
+    }
+
+    @Override
+    public void onComodinUsado(int comodin) {
+        if (model==null)
+            return;
+
+        model.usarComodin(comodin);
     }
 
     // Actualiza el contenido de las preguntas (Para el juego)
@@ -151,6 +170,20 @@ public class GameActivity extends AppCompatActivity implements FragmentJuegoPreg
         }
     }
 
+    //  Traduce el texto
+    public void traducir () {
+        if (fragmentRespuestas==null || fragmentPregunta==null || model==null)
+            return;
+
+        model.cargarTraduccion(listaPreguntas.get(preguntaActual), new PreguntaJuegoViewModel.OnTranslateListener() {
+            @Override
+            public void onTranslate(Traduccion traduccion, boolean traducido) {
+                fragmentPregunta.setTraduccion(traduccion, traducido);
+                fragmentRespuestas.setTraduccion(traduccion, traducido);
+            }
+        });
+    }
+
     private void siguientePregunta(boolean firstTime) {
         // Si es la primera se mostraran los LinearLayout, en caso contrario suma 1 el contador
         if (firstTime) {
@@ -159,7 +192,15 @@ public class GameActivity extends AppCompatActivity implements FragmentJuegoPreg
         } else {
             nextQuestion=true;
             model.setPreguntaActual(++preguntaActual);
+
+            // No se traduce la siguiente pregunta porque la API De traducción es de pruebas y limitada.
+            // Y no quiero gastar los usos, para evitar problemas de cara a la presentación.
+            //if (model.isTranslating())
+            //  traducir();
         }
+
+        // Reiniciamos el traductor, de tenerlo activado
+        model.resetTranslate();
 
         if (preguntaActual>=listaPreguntas.size()) {
             if (nextQuestion) {
@@ -219,5 +260,21 @@ public class GameActivity extends AppCompatActivity implements FragmentJuegoPreg
                 count++;
         }
         return count;
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (id == R.id.icono_traducir) {
+            traducir();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

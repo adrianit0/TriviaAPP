@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import com.garcia.adrian.triviaapp.R;
 import com.garcia.adrian.triviaapp.model.juego.PreguntaJuego;
+import com.garcia.adrian.triviaapp.model.juego.Traduccion;
 
 public class FragmentJuegoPregunta extends Fragment {
 
@@ -84,6 +85,14 @@ public class FragmentJuegoPregunta extends Fragment {
         textoPuntos.setText(pregunta.getDificultad().getPuntuacion()+"");
         textoCategoria.setText(pregunta.getCategoria().getShortName(getContext()));
         textoDificultad.setText(pregunta.getDificultad().getName(getContext()));
+    }
+
+    public void setTraduccion (Traduccion t, boolean traducir) {
+        if (traducir) {
+            textoEnunciado.setText(t.getEnunciado());
+        } else {
+            textoEnunciado.setText(pregunta.getEnunciado());
+        }
     }
 
     @Override

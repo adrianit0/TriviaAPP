@@ -80,6 +80,14 @@ public class PreguntaJuego {
         return _opciones;
     }
 
+    public String[] getOpcionesRandomly (boolean change ){
+        if (change) {
+            return getOpcionesRandomly();
+        }
+
+        return randomOptions;
+    }
+
     public String getCorrectAnswerString () {
         return randomOptions[correctAnswer];
     }

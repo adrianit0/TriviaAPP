@@ -94,4 +94,7 @@
     <string name="categoria23short">Gadgets</string>
     <string name="categoria24short">Anime</string>
     <string name="categoria25short">Dibujitos</string>
+    <string name="usarComodin">No puedes usar ahora el comodin</string>
+    <string name="llamadaSeguro">"Estoy seguro que la respuesta es la "</string>
+    <string name="llamadaCreo">"Creo que es la "</string>
 </resources>

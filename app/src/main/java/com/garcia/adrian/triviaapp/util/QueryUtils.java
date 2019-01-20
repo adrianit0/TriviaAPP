@@ -5,6 +5,7 @@ import android.util.Log;
 import com.garcia.adrian.triviaapp.enums.CATEGORIA;
 import com.garcia.adrian.triviaapp.enums.DIFICULTAD;
 import com.garcia.adrian.triviaapp.model.juego.PreguntaJuego;
+import com.garcia.adrian.triviaapp.model.juego.Traduccion;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -30,7 +31,6 @@ public final class QueryUtils {
     private QueryUtils() { }
 
     public static ArrayList<PreguntaJuego> extractQuestions(String s) {
-
         ArrayList<PreguntaJuego> preguntas = new ArrayList<>();
 
         try {
@@ -63,6 +63,34 @@ public final class QueryUtils {
             Log.e("QueryUtils", "Problem parsing the questions JSON results", e);
         }
         return preguntas;
+    }
+
+    public static Traduccion translateQuestion (String s) {
+        Traduccion traduccion = null;
+
+        try {
+            JSONObject root = new JSONObject(s);
+
+            String code = root.getString("code");
+            if (!code.equals("200")) {
+                Log.e("Traduccion", "Código de error: " + code);
+                return null;
+            }
+
+            JSONArray array = root.getJSONArray("text");
+
+            String[] opciones = new String[array.length()];
+            for (int i = 0; i < array.length(); i++) {
+                opciones[i] = array.getString(i);
+            }
+
+            traduccion = new Traduccion(opciones);
+
+        } catch (JSONException e) {
+            Log.e("QueryUtils", "Problem parsing the questions JSON results", e);
+        }
+
+        return traduccion;
     }
 
     private static String convertFromHTML (String texto) {
